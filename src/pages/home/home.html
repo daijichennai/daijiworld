@@ -71,13 +71,7 @@
           <!-- Topstories Slide -->
           <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
             <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
-          </ion-thumbnail>
-          <!-- <div *ngIf="i.boxthis == 1">
-            <h2 [innerHTML]="i.newsTitle" class="colorRed" text-wrap></h2>
-          </div>
-          <div *ngIf="i.boxthis == 0">
-            <h2 [innerHTML]="i.newsTitle" text-wrap></h2>
-          </div> -->
+          </ion-thumbnail>          
           <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
           <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp;
             <span *ngIf="i.newsComments !=0">
@@ -88,9 +82,7 @@
           
         </ion-item>
       </ion-list>
-      <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
+
     </ion-slide>
     <ion-slide>
       <ion-list>
