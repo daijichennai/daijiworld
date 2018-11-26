@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Comments</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <form [formGroup]="authForm" (ngSubmit)="submitForm(authForm.value)"> -->
+  <form [formGroup]="authForm" (ngSubmit)="insertComments()">
+
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="userName" value="" [formControl]="authForm.controls['ecUserName']" [ngClass]="{'error-border':!authForm.controls['ecUserName'].valid}"></ion-input>
+    </ion-item><br />
+    <div class="error-box" class="colorRed" *ngIf="authForm.controls['ecUserName'].hasError('required') && authForm.controls['ecUserName'].touched">*
+      Name is required!</div>
+
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="userEmail" value="" [formControl]="authForm.controls['ecUserEmail']"
+            [ngClass]="{'error-border':!authForm.controls['ecUserEmail'].valid}"></ion-input>
+        </ion-item><br />
+        <div class="error-box" class="colorRed" *ngIf="authForm.controls['ecUserEmail'].hasError('required') && authForm.controls['ecUserEmail'].touched">*
+          Email is required!</div>
+
+          <ion-item>
+            <ion-label floating>Place</ion-label>
+            <ion-input type="text" [(ngModel)]="userPlace"  value="" [formControl]="authForm.controls['ecUserPlace']"
+              [ngClass]="{'error-border':!authForm.controls['ecUserPlace'].valid}"></ion-input>
+          </ion-item><br />
+          <div class="error-box" class="colorRed" *ngIf="authForm.controls['ecUserPlace'].hasError('required') && authForm.controls['ecUserPlace'].touched">*
+            Place is required!</div>
+          
+    <ion-item>
+      <ion-label floating>Comments</ion-label>
+      <ion-input type="text" [(ngModel)]="userComments" value="" [formControl]="authForm.controls['ecComments']"
+        [ngClass]="{'error-border':!authForm.controls['ecComments'].valid}"></ion-input>
+    </ion-item><br />
+    <div class="error-box" class="colorRed" *ngIf="authForm.controls['ecComments'].hasError('required') && authForm.controls['ecComments'].touched">*
+      Comments is required!</div>
+    <div class="error-box" class="colorRed" *ngIf="authForm.controls['ecComments'].hasError('pattern') && authForm.controls['ecComments'].touched">*
+      Invalid Email Format</div>
+
+ 
+
+    
+
+
+
+      
+ 
+
+    <button type="submit" ion-button full [disabled]="!authForm.valid">Submit</button>
+  </form>
+</ion-content>
+

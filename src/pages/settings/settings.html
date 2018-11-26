@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Settings</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>Mobile Notification</ion-label>
+    <ion-checkbox color="primary" [(ngModel)]="chkDevicePushEnable" (ionChange)="updateDeviceID()"></ion-checkbox>
+  </ion-item>
+
+</ion-content>

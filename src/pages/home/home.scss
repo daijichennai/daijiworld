@@ -1,0 +1,50 @@
+page-home {
+
+    .boxThis{
+        border: 1px solid red;
+    }
+
+    .colorGreen{
+        background-color:#32DB64 !important;
+        text-align:center;
+    }
+    
+    .colorRed{
+        color: red;
+    }
+    ion-slides{
+        height:auto;
+        padding-top: 10px;
+        padding-left: 5px; 
+    }
+    
+    ion-segment {
+        display: block;
+        white-space: nowrap;
+        font-size: 0;
+        overflow: auto;
+  
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+  
+        ion-segment-button.segment-button {
+            display: inline-block;
+            min-width: 90px;
+            width: auto;
+        
+        }
+    }
+    ion-toolbar {
+      padding: 0px 4px !important;
+      min-height: 3px !important;
+    }
+  
+    .toolbar-ios ion-title {
+      padding: 0 0px 1px;
+    }
+   
+  }
+  

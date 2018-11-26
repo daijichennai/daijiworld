@@ -1,0 +1,63 @@
+page-display-news {
+
+}
+
+ 
+.comments-container {
+    padding: 0px;
+    margin-left: -30px;
+    margin-right: 5px;
+    background-color: #fff;
+}
+
+.grayColor{
+    height: 50px;
+    background-color:#EFEFEF;
+}
+
+.greenColor{
+    height: 50px;
+    background-color:#CFF3D1
+}
+.violetColor{
+    height: 50px;
+    background-color:#E1E2F5
+}
+.orangeColor{
+    height: 50px;
+    background-color:#CFFBFF;
+} 
+
+.comments-list1 {
+    list-style-type: none;
+  
+}
+
+ .comment-Date {
+    color:#2C2C2A; 
+    font-size:15px; 
+    font-weight: 500;
+}
+   
+.comment-box .comment-name {
+    color: #283035;
+    font-size: 14px;
+    float: left; 
+    font-weight: 100;
+}
+
+.comment-box .comment-name a {
+    color: #283035;
+}
+ 
+
+.comment-box .comment-content {
+    background: transparent;
+    padding: 1px;
+    font-size: 15px;
+    color: #595959;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+  

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title><i class="fa fa-cutlery"></i>&nbsp;Recipe</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="toggleMenu();">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  #container>
+  <div *ngFor="let r of recipeJson">
+    <ion-item  (click)="recipeListByID(r.newsID)">
+      <ion-thumbnail item-left *ngIf=" r.newsImage != ''">
+        <img [src]="r.newsImage"  />
+      </ion-thumbnail>
+      <h2 [innerHTML]="r.newsTitle" text-wrap>{{r.newsTitle}}</h2>
+    </ion-item>
+  </div>
+</ion-content>

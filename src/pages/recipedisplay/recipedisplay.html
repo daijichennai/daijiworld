@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="primary" >
+    <ion-title><i class="fa fa-cutlery" ></i>&nbsp;Recipe</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="toggleMenu();">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<div *ngFor="let r of recipeJson">
+  <ion-card (click)="singleRecipebyID(r.newsID,r.newsTitle)" >
+    <ion-card-header>
+      <h2 [innerHTML]="r.newsTitle" text-wrap>{{r.newsTitle}}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <i class="fa fa-user" ></i>&nbsp;<span [innerHTML]="r.custName" ></span> <i class="fa fa-comments-o"></i>&nbsp;<span [innerHTML]="r.newsComments"></span>
+    </ion-card-content>
+  </ion-card>
+   
+</div>
+</ion-content>

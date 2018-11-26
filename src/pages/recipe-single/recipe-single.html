@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title><i class="fa fa-cutlery"></i>&nbsp;Recipe</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="commentsPageFn()">
+        <i class="fa fa-comments-o fa-2x"></i>
+      </button>
+      <button ion-button icon-only color="royal" (click)="toggleMenu();">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+<div *ngFor="let i of singleRecipeJson">
+    <h4 [innerHtml]="i.newsTitle"></h4>       
+    <p ion-text text-justify [innerHtml]="i.newsDesc"></p>
+</div>
+
+<div>
+  <h4 style="padding-left: 15px">Comments on this article</h4>
+  <div >
+    <ion-card *ngFor="let ec of recipeComments">
+      <ion-card-header>
+        {{ec.ecName}} ,&nbsp;<i class="fa fa-map-marker"></i>&nbsp; {{ec.ecPlace}} <br /> 
+      <span style="font-size: 12px;" >  <i class="fa fa-calendar"></i>&nbsp; {{ec.ecDate}}</span>
+      </ion-card-header>
+      <ion-card-content>
+        <p [innerHTML]="ec.ecComments" ></p>
+        </ion-card-content>
+          <ion-row>
+            <ion-col text-left>
+              <button ion-button color="secondary" small>
+                <ion-icon name="thumbs-up" (click)="agreeDisAgreeFn(1,ec.ecID)" id="upAgreeValue{{ec.ecID}}">
+                  &nbsp;{{ec.ecAgree}}
+                </ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>     
+    </ion-card>
+  </div>
+</div>
+</ion-content>

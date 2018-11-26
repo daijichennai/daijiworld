@@ -1,0 +1,325 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title><img src="../../assets/imgs/daijiworld.jpg" /></ion-title>
+    <ion-buttons right>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar mode="md" color="primary">
+    <ion-segment #segments mode="md" [(ngModel)]="page" color="light">
+      <ion-segment-button value="0" (click)="selectedTab(0)">
+        Topstories
+      </ion-segment-button>
+      <ion-segment-button value="1" (click)="selectedTab(1)">
+        KARNATAKA
+      </ion-segment-button>
+      <ion-segment-button value="2" style="background-color:red;" (click)="selectedTab(2)">
+        OBITUARY
+      </ion-segment-button>
+      <ion-segment-button value="3" (click)="selectedTab(3)">
+        MUMBAI
+      </ion-segment-button>
+      <ion-segment-button value="4" (click)="selectedTab(4)">
+        GOA
+      </ion-segment-button>
+      <ion-segment-button value="5" (click)="selectedTab(5)">
+        GULF
+      </ion-segment-button>
+      <ion-segment-button value="6" (click)="selectedTab(6)">
+        USA
+      </ion-segment-button>
+      <ion-segment-button value="7" style="word-wrap: break-word; width: auto" (click)="selectedTab(7)">
+        INDIA / WORLD
+      </ion-segment-button>
+      <ion-segment-button value="8" (click)="selectedTab(8)">
+        SHOW BIZ
+      </ion-segment-button>
+      <ion-segment-button value="9" (click)="selectedTab(9)">
+        BUSINESS
+      </ion-segment-button>
+      <ion-segment-button value="10" (click)="selectedTab(10)">
+        SPORTS
+      </ion-segment-button>
+      <ion-segment-button value="11" (click)="selectedTab(11)">
+        HEALTH
+      </ion-segment-button>
+      <ion-segment-button value="12" style="word-wrap: break-word; width: auto" (click)="selectedTab(12)">
+        EDITOR'S PICK
+      </ion-segment-button>
+      <ion-segment-button value="13" style="word-wrap: break-word; width: auto" (click)="selectedTab(13)">
+        COASTAL CINE WORLD
+      </ion-segment-button>
+      <ion-segment-button value="14" style="word-wrap: break-word; width: auto" (click)="selectedTab(14)">
+        CAMPUS BEAT
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #container>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Fetching Data from server...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-slides #slider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <ion-list>
+        <ion-item *ngFor="let i of listNews" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)" [ngClass]="i.boxthis == 1 ? 'boxThis': ''"  >
+          <!-- Topstories Slide -->
+          <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+            <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+          </ion-thumbnail>
+          <!-- <div *ngIf="i.boxthis == 1">
+            <h2 [innerHTML]="i.newsTitle" class="colorRed" text-wrap></h2>
+          </div>
+          <div *ngIf="i.boxthis == 0">
+            <h2 [innerHTML]="i.newsTitle" text-wrap></h2>
+          </div> -->
+          <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+          <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp;
+            <span *ngIf="i.newsComments !=0">
+              <i class="fa fa-comments-o colorRed"></i>
+              <span class="colorRed" [innerHTML]="i.newsComments"></span>
+            </span>
+          </p>
+          
+        </ion-item>
+      </ion-list>
+      <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='kar'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Karnataka Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='obituary'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Obituary Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='mah'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- MUMBAi Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='goa'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- GOA Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='me'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- GULF Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='usa'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- USA Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='others'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- INDIA / WORLD Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='entertainment'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- SHOW BIZ Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='business'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Business Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='sports'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!--Sport Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='health'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Health Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='editor'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Editor's pick Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='coastalCineWorld'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Coastal wine world Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-slide>
+    <ion-slide>
+      <ion-list>
+        <div *ngFor="let i of listNews">
+          <ion-item *ngIf="i.newsSection=='campusBeat'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <!-- Campus beat Slide -->
+            <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
+              <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </ion-thumbnail>
+            <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-slide>
+
+
+  </ion-slides>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

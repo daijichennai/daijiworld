@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{dispNewsSectionName}}</ion-title>
+    <ion-buttons end>
+
+      <button *ngIf="fromPage!='listPage'" ion-button icon-only color="royal" (click)="commentsPageFn()">
+        <!-- <ion-icon name="text"  ></ion-icon> -->
+        <i class="fa fa-comments-o fa-2x"></i>
+      </button>
+      <button ion-button icon-only color="royal" (click)="toggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding *ngFor="let i of singleNewsData">
+    <h4 ion-text color="primary">{{i.newsTitle}}</h4>
+
+    <ion-row>
+      <ion-col>
+        <i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}
+
+        <span class="colorRed" [innerHTML]="i.newsComments"></span>
+      </ion-col>
+    </ion-row>
+
+    <p ion-text text-justify [innerHtml]="i.newsDesc"></p>
+    <!-- <ion-item-divider ></ion-item-divider> -->
+  </div>
+
+<div *ngIf="hideShowDiv">
+    <h4 style="padding-left: 15px">Comments on this article</h4>
+   
+    <div class="comments-container" *ngFor="let ec of newsCommentsData">
+      <ul style="list-style: none;" >
+        <li>
+          <div class="comment-main-level">
+            <div class="comment-box">
+              <div class="comment-head" class="{{chkSubLvlBgColor(ec.ecDotsLevel)}}" >
+                <div class="card-header" style="padding-top:10px;padding-left:10px;" >
+                  <div class="commentName" style="font-size:12px;" >
+                    {{ec.ecName}} ,&nbsp;<i class="fa fa-map-marker"></i>&nbsp; {{ec.ecPlace}} <br/>
+                    <span class="commentDate"><i class="fa fa-calendar"></i>&nbsp;{{ec.ecDate}}
+                    </span></div>
+                </div>
+              </div>
+              <div>
+                
+                <div class="comment-content">
+                  <p text-justify [innerHTML]="ec.ecComments" style="padding-left:10px;"></p>
+                  <!--This is for Reply & Report Abuse button-->
+                  <div *ngIf="strNewsSection!='obituary'">
+                  <ion-row>
+                    <ion-col text-center>
+                      <button *ngIf="strNewsSection !='exclusive' " ion-button color="danger" small (click)="replyFn(ec.ecID,'reportAbuse')">
+                        <div>Report Abuse</div>
+                      </button>
+              
+                      <button *ngIf="strNewsSection !='exclusive' " ion-button color="info" small (click)="replyFn(ec.ecID,'reply')">
+                        <ion-icon name="ios-undo"></ion-icon>
+                        <div>&nbsp;Reply</div>
+                      </button>
+
+                      <button *ngIf="showThumbsUp || strNewsSection ==='exclusive' " ion-button color="secondary" small>
+                        <ion-icon name="thumbs-up" (click)="agreeDisAgreeFn(1,ec.ecID)" id="upAgreeValue{{ec.ecID}}">
+                          &nbsp;{{ec.ecAgree}}
+                        </ion-icon>
+                      </button>
+              
+                      <button *ngIf="showAgreeDisagree" ion-button color="secondary" small>
+                        <ion-icon name="thumbs-up" (click)="agreeDisAgreeFn(1,ec.ecID)" id="upAgreeValue{{ec.ecID}}">
+                          &nbsp;{{ec.ecAgree}}
+                        </ion-icon>
+                      </button>
+              
+                      <button *ngIf="showAgreeDisagree" ion-button color="danger" small>
+                        <ion-icon name="thumbs-down" (click)="agreeDisAgreeFn(2,ec.ecID)" id="upDisagreeValue{{ec.ecID}}">
+                          &nbsp;{{ec.ecDisAgree}}
+                        </ion-icon>
+                      </button>
+                    </ion-col>
+                  </ion-row>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>  
+ 
+  
+  <ion-fab *ngIf="fromPage!='listPage' || strNewsSection!='obituary'" bottom right padding (click)="shareNews()">
+    <button ion-fab><i class="fa fa-share-alt"></i></button>
+  </ion-fab>
+  
+  <br />
+  
+  <div text-center> Copyright &copy; {{myDate | date:'yyyy'}} Daijiworld.com </div>
+  <br />
+</ion-content>
