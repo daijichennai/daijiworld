@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, Slides, NavParams, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from '../../../node_modules/rxjs/Subscription';
@@ -22,6 +22,7 @@ export class HomePage {
   connected: Subscription;
   disconnected: Subscription;
   public toastConnectedCount: number = 0;
+ 
 
   constructor(
       public navCtrl: NavController,
@@ -30,7 +31,8 @@ export class HomePage {
       public loadingCtrl: LoadingController,
       public network: Network,
       public toast: ToastController,
-    public myFunc: CommonFunctionProvider
+      public modalCtrl: ModalController,
+      public myFunc: CommonFunctionProvider
       ) {
     this.domainName = myFunc.domainName;
     
@@ -90,6 +92,7 @@ export class HomePage {
       newsSection: newsSection,
       newsComments: newsComments
     });
+    
   }
 
   displayNewsByCatCode() {
@@ -170,7 +173,7 @@ export class HomePage {
       this.page = (slides_count - 1).toString();
     this.strNewsSection = this.newsMode(this.page)    
     console.log(this.strNewsSection);
-    this.displayNewsByCatCode();    
+    this.displayNewsByCatCode();
     this.centerScroll();
   }
 
@@ -251,6 +254,22 @@ export class HomePage {
       }
       this.segments.nativeElement.scrollLeft = newX;
     }, 1000 / 60); // 60 fps
+  }
+
+  goToLiveStream(){
+    this.navCtrl.push('LivestreamPage');
+  }
+
+  goToDwTv247() {
+    this.navCtrl.push('Dwtv247Page');
+  }
+
+  goToRadio() {
+    this.navCtrl.push('RadioPage');
+  }
+
+  goToDwweekly(){
+    this.navCtrl.push('DwweeklyPage');
   }
 
 }

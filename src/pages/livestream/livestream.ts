@@ -4,12 +4,14 @@ import { CommonFunctionProvider } from '../../providers/common-function/common-f
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 
+
 @IonicPage()
 @Component({
-  selector: 'page-dwweekly',
-  templateUrl: 'dwweekly.html',
+  selector: 'page-livestream',
+  templateUrl: 'livestream.html',
 })
-export class DwweeklyPage {
+export class LivestreamPage {
+ 
   public domainName: string = "";
   public dwWeeklyJson: any;
   constructor(
@@ -21,17 +23,16 @@ export class DwweeklyPage {
     public menuCtrl: MenuController,
   ) {
 
-    this.domainName = myFunc.domainName;
-    this.getDwWeeklyData();
+    // this.domainName = myFunc.domainName;
+    // this.getDaijiLiveData();
   }
 
-  toggleMenu() {
-    this.menuCtrl.toggle();
-  }
-  getDwWeeklyData() {
+   getDaijiLiveData() {
     let data: Observable<any>;
     //alert(newsSection);
-    let url = this.domainName + "mobileHandlers/dwWeekly.ashx?sID=1283";
+    //let url = this.domainName + "mobileHandlers/daijiLive.ashx";
+     let url = "http://192.168.1.2/daijiworld/mobileHandlers/daijiLive.ashx";
+
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -45,5 +46,7 @@ export class DwweeklyPage {
     });
   }
 
-
+  toggleMenu() {
+    this.menuCtrl.toggle();
+  }
 }

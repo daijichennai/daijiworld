@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button  icon-only  (click)="goToLiveStream();" >
+        <i class="fa fa-video-camera fa-2x" ></i>
+      </button>
+    </ion-buttons>
     <ion-title><img src="../../assets/imgs/daijiworld.jpg" /></ion-title>
     <ion-buttons right>
       <button ion-button menuToggle>
@@ -7,7 +12,16 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+ 
   <ion-toolbar mode="md" color="primary">
+
+    <!-- <ion-tabs>
+      <ion-tab [root]="tab1Root" tabTitle="Weekly" tabIcon="paper"></ion-tab>
+      <ion-tab [root]="tab2Root" tabTitle="Radio" tabIcon="radio"></ion-tab>
+      <ion-tab [root]="tab3Root" tabTitle="Tv" tabIcon="laptop"></ion-tab>
+      <ion-tab [root]="tab4Root" tabTitle="Live" tabIcon="videocam"></ion-tab>
+    </ion-tabs>  -->
+
     <ion-segment #segments mode="md" [(ngModel)]="page" color="light">
       <ion-segment-button value="0" (click)="selectedTab(0)">
         Topstories
@@ -59,6 +73,9 @@
 </ion-header>
 
 <ion-content #container>
+
+
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
       refreshingText="Fetching Data from server...">
@@ -71,7 +88,13 @@
           <!-- Topstories Slide -->
           <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
             <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
-          </ion-thumbnail>          
+          </ion-thumbnail>
+          <!-- <div *ngIf="i.boxthis == 1">
+            <h2 [innerHTML]="i.newsTitle" class="colorRed" text-wrap></h2>
+          </div>
+          <div *ngIf="i.boxthis == 0">
+            <h2 [innerHTML]="i.newsTitle" text-wrap></h2>
+          </div> -->
           <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
           <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp;
             <span *ngIf="i.newsComments !=0">
@@ -82,7 +105,9 @@
           
         </ion-item>
       </ion-list>
-
+      <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
     </ion-slide>
     <ion-slide>
       <ion-list>
@@ -307,11 +332,32 @@
       </ion-list>
 
     </ion-slide>
-
-
-  </ion-slides>
-
+  </ion-slides> 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <ion-fab bottom right>
+    <button ion-fab color="primary" >
+      <i class="fa fa-eye"></i>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab color="yellow" (click)="goToDwTv247();" >
+        <i class="fa fa-television"></i>
+      </button>      
+      <button ion-fab color="maroon" (click)="goToRadio();" >
+          <ion-icon ios="ios-radio" md="md-radio"></ion-icon>
+      </button>
+      <button ion-fab color="primary" (click)="goToDwweekly();">
+        <i class="fa fa-newspaper-o"></i>
+      </button>
+      <button ion-fab color="danger" (click)="goToLiveStream();" >
+          <i class="fa fa-video-camera"></i>
+      </button> 
+    </ion-fab-list>
+    <!-- <ion-fab-list side="left">
+      <button ion-fab>Vimeo</button>
+    </ion-fab-list> -->
+  </ion-fab>
+ 
 </ion-content>

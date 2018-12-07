@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="maroon" >
+    <ion-title>Radio</ion-title>
+    <ion-buttons end> 
+      <button ion-button icon-only color="royal" (click)="toggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-list>
+  <ion-item>
+    <div text-center >
+      <b>Listen @ - www.radiodaijiworld.com</b>
+    </div> 
+    <br> 
+<div padding>
+  <b>Click below button to download Daijiworld247 App</b>
+</div>
+<div text-center>
+  <i class="fa fa-hand-o-down fa-2x"></i>
+</div>
+    <div text-center  (click)="openPlayStore()" >
+      <img src="https://www.daijiworld.com/images/playStoreLogo.png"  >
+    </div>
+<br>
+    <b style="color:red;" >To know more about Radio Commercial <br>Tariff Details</b><br><br>
+     <div>
+       <b>Contact : </b><br>
+       <b>Station Director : Arun D'Almeida</b> <br>
+       <b>00971 - 50 - 4127689</b><br>
+       <b>Operations Supervisor: Sanjay Rodrigues</b><br>
+       <b>0091 - 918147479876</b><br>
+       <b>Email: radio@daijiworld.com</b>
+     </div>
+  </ion-item>
+</ion-list>
+</ion-content>

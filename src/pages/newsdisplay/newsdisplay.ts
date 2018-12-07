@@ -49,6 +49,10 @@ export class NewsdisplayPage {
     //this.displayEmailCommentsByNewsID(538813);
   }
 
+  // closeModel(){
+  //   this.navCtrl.pop();
+  // }
+
   displayEmailCommentsByNewsID(newsID: number) {
     let newsComment: Observable<any>;
 
