@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subscription } from '../../../node_modules/rxjs/Subscription';
 import { Network } from "@ionic-native/network";
 import { CommonFunctionProvider } from '../../providers/common-function/common-function';
+import { SocialSharing } from "@ionic-native/social-sharing";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -34,7 +35,8 @@ export class HomePage {
       public network: Network,
       public toast: ToastController,
       public modalCtrl: ModalController,
-      public myFunc: CommonFunctionProvider
+      public myFunc: CommonFunctionProvider,
+      public socialSharing: SocialSharing,
       ) {
     this.domainName = myFunc.domainName;
     
@@ -168,6 +170,15 @@ export class HomePage {
         this.listDaijiLive = result;
         loader.dismiss();
       })
+    });
+  }
+
+  shareNews(newsTitle, newsID) {
+    let shareLink = this.domainName + "news/newsDisplay.aspx?newsID=" + newsID;
+    this.socialSharing.share(newsTitle, null, null, shareLink).then(() => {
+      console.log('success');
+    }).catch(() => {
+      console.log('error');
     });
   }
  

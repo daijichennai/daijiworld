@@ -68,10 +68,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #container>
-
-
-
+<ion-content #container> 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
       refreshingText="Fetching Data from server...">
@@ -79,10 +76,11 @@
   </ion-refresher>
   <ion-slides #slider (ionSlideDidChange)="slideChanged()">
     <ion-slide>
-      <ion-list>
+      <!-- Topstories Slide -->
+      <!-- <ion-list>
         <div *ngFor="let i of listNews">
         <ion-item *ngIf="i.newsSection=='topstories'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)" [ngClass]="i.boxthis == 1 ? 'boxThis': ''"  >
-          <!-- Topstories Slide -->
+          
           <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
             <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
           </ion-thumbnail> 
@@ -96,7 +94,48 @@
           
         </ion-item>
         </div>
-      </ion-list> 
+      </ion-list>  -->
+
+
+      <ion-card *ngFor="let i of listNews">
+        <div *ngIf="i.newsSection=='topstories'" [ngClass]="i.boxthis == 1 ? 'boxThis': ''"  >
+          <div (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+            <div *ngIf="i.newsImage!=''">
+              <img [defaultImage]="'../assets/imgs/lazyCardLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
+            </div>
+      
+            <ion-card-content>
+              <h2 text-left [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+            </ion-card-content>
+          </div>
+          <ion-row>
+            <ion-col col-4>
+              <button ion-button icon-start clear small>
+                <ion-icon name="clock"></ion-icon>
+                <div>{{i.newsDate}}</div>
+              </button>
+            </ion-col>
+      
+            <ion-col col-4 style="text-align: center;">
+              <div *ngIf="i.newsComments !=0">
+                <button ion-button icon-start clear small>
+                  <ion-icon name="text"></ion-icon>
+                  {{i.newsComments}}
+                </button>
+              </div>
+            </ion-col>
+      
+            <ion-col col-4>
+              <button ion-button icon-start clear small (click)="shareNews(i.newsTitle,i.newsID)">
+                <ion-icon name="share-alt"></ion-icon>
+                Share
+              </button>
+            </ion-col>
+      
+          </ion-row>
+        </div>
+      </ion-card>
+
     </ion-slide>
 
     <ion-slide>
@@ -105,7 +144,7 @@
         <div *ngFor="let l of listDaijiLive" > 
           <ion-item  (click)="goToLiveStream(l.hpVideoID)" >
             <h2 style="color:red;" text-center [innerHTML]="l.hpVideoTitle" text-wrap></h2>
-            <img width="80" [defaultImage]="'../assets/imgs/daijiLiveImg.png'" [lazyLoad]="l.hpImageUrl" [scrollObservable]="container.ionScroll" />
+            <img width="80" [defaultImage]="'../assets/imgs/lazyCardLogo.png'" [lazyLoad]="l.hpImageUrl" [scrollObservable]="container.ionScroll" />
           </ion-item>
         
 
@@ -118,10 +157,11 @@
     </ion-slide>
 
     <ion-slide>
-      <ion-list>
+      <!-- Karnataka Slide -->
+      <!-- <ion-list>
         <div *ngFor="let i of listNews">
           <ion-item *ngIf="i.newsSection=='kar'"  (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
-            <!-- Karnataka Slide -->
+            
             <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
               <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
             </ion-thumbnail>
@@ -130,7 +170,51 @@
                 <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
           </ion-item>
         </div>
-      </ion-list>
+      </ion-list> -->
+
+    <ion-card *ngFor="let i of listNews" >
+      <div *ngIf="i.newsSection=='kar'" >
+        <div (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)" >
+          <div *ngIf="i.newsImage!=''" >
+            <img [defaultImage]="'../assets/imgs/lazyCardLogo.png'" [lazyLoad]="i.newsImage"
+              [scrollObservable]="container.ionScroll" />
+          </div>
+      
+        <ion-card-content>
+          <h2 text-left [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
+        </ion-card-content>
+      </div>
+        <ion-row>
+          <ion-col col-4>
+            <button ion-button icon-start clear small>
+              <ion-icon name="clock"></ion-icon>
+              <div>{{i.newsDate}}</div>
+            </button>
+          </ion-col>
+          
+          <ion-col col-4 style="text-align: center;">
+            <div *ngIf="i.newsComments !=0">
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              {{i.newsComments}}
+            </button>
+            </div>
+          </ion-col>
+      
+          <ion-col col-4>
+            <button ion-button icon-start clear small (click)="shareNews(i.newsTitle,i.newsID)">
+              <ion-icon name="share-alt"></ion-icon>
+              Share
+            </button>
+          </ion-col>
+      
+        </ion-row>
+        </div>
+      </ion-card>
+
+
+
+
     </ion-slide>
     <ion-slide>
       <ion-list>
