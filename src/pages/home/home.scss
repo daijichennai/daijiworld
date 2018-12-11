@@ -3,6 +3,9 @@ page-home {
 
     .boxThis{
         border: 1px solid red;
+        width: 99%;
+        margin: 1px;
+        background-color:#efefef;
     }
 
     .colorGreen{
@@ -15,10 +18,10 @@ page-home {
     }
     ion-slides{
         height:auto;
-        padding-top: 15px;
+        padding-top: 10px;
         padding-left: 5px; 
     }
-    
+
     ion-segment {
         display: block;
         white-space: nowrap;

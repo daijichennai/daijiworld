@@ -1,19 +1,39 @@
 <ion-header>
   <ion-navbar color="primary" >
     <ion-title>Live Stream</ion-title>
+    <ion-buttons end> 
+      <button ion-button icon-only color="royal" (click)="toggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content>
-<ion-list>
-  <div class="card">
-    <ion-item>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/live_stream?channel=UC5XQoG9YZ4iDM3ds_ttyT9g&autoplay=1" frameborder="0"
-          allowFullScreen></iframe>
+<ion-content padding> 
+  <div class="card" *ngFor="let l of liveJson"  >
+    <h3 style="color:red;" text-center  [innerHTML]="l.hpVideoTitle" ></h3>
+      <div *ngIf="l.hpVideoMode == 'Youtube' " class="video-container"> 
+        <iframe [src]="transform(l.hpVideoCode)" allowFullScreen></iframe>  
       </div>
-    </ion-item>
-  </div>
-</ion-list>
+
+      <div *ngIf="l.hpVideoMode == 'FaceBook' "  >        
+          <iframe width="330" height="490" [src]="transform(l.hpVideoCode)" scrolling="yes" allowFullScreen></iframe>        
+      </div>
+
+      <div *ngIf="l.hpVideoMode == 'webStream' ">
+        <link rel="stylesheet" href="//releases.flowplayer.org/7.0.3/skin/skin.css">
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        
+        <script src="//releases.flowplayer.org/7.0.3/flowplayer.min.js"></script>
+        <script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script>
+        
+        <div style="width:330px;height:450px;" class="flowplayer" data-live="true" data-share="false" data-ratio="0.5625">
+          <video>
+            <source type="application/x-mpegurl" [src]="transform(l.hpVideoCode)">
+          </video>
+        </div>
+      </div>
+
+  </div> 
 </ion-content>

@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button  icon-only  (click)="goToLiveStream();" >
-        <i class="fa fa-video-camera fa-2x" ></i>
+      <button text-center ion-button  icon-only (click)="goToLiveList()" >
+        <i class="fa fa-video-camera" style="font-size: 25px;color:#488aff;" ></i>
       </button>
     </ion-buttons>
     <ion-title><img src="../../assets/imgs/daijiworld.jpg" /></ion-title>
@@ -13,59 +13,55 @@
     </ion-buttons>
   </ion-navbar>
  
-  <ion-toolbar mode="md" color="primary">
-
-    <!-- <ion-tabs>
-      <ion-tab [root]="tab1Root" tabTitle="Weekly" tabIcon="paper"></ion-tab>
-      <ion-tab [root]="tab2Root" tabTitle="Radio" tabIcon="radio"></ion-tab>
-      <ion-tab [root]="tab3Root" tabTitle="Tv" tabIcon="laptop"></ion-tab>
-      <ion-tab [root]="tab4Root" tabTitle="Live" tabIcon="videocam"></ion-tab>
-    </ion-tabs>  -->
+  <ion-toolbar mode="md" color="primary"> 
 
     <ion-segment #segments mode="md" [(ngModel)]="page" color="light">
       <ion-segment-button value="0" (click)="selectedTab(0)">
         Topstories
       </ion-segment-button>
       <ion-segment-button value="1" (click)="selectedTab(1)">
+        Live
+      </ion-segment-button>
+      <ion-segment-button value="2" (click)="selectedTab(2)">
         KARNATAKA
       </ion-segment-button>
-      <ion-segment-button value="2" style="background-color:red;" (click)="selectedTab(2)">
+      <ion-segment-button value="3" style="background-color:red;" (click)="selectedTab(3)">
         OBITUARY
       </ion-segment-button>
-      <ion-segment-button value="3" (click)="selectedTab(3)">
+      <ion-segment-button value="4" (click)="selectedTab(4)">
         MUMBAI
       </ion-segment-button>
-      <ion-segment-button value="4" (click)="selectedTab(4)">
+      <ion-segment-button value="5" (click)="selectedTab(5)">
         GOA
       </ion-segment-button>
-      <ion-segment-button value="5" (click)="selectedTab(5)">
+      <ion-segment-button value="6" (click)="selectedTab(6)">
         GULF
       </ion-segment-button>
-      <ion-segment-button value="6" (click)="selectedTab(6)">
+      <ion-segment-button value="7" (click)="selectedTab(7)">
         USA
       </ion-segment-button>
-      <ion-segment-button value="7" style="word-wrap: break-word; width: auto" (click)="selectedTab(7)">
+      <ion-segment-button value="8" style="word-wrap: break-word; width: auto" (click)="selectedTab(8)">
         INDIA / WORLD
       </ion-segment-button>
-      <ion-segment-button value="8" (click)="selectedTab(8)">
+      <ion-segment-button value="9" (click)="selectedTab(9)">
         SHOW BIZ
       </ion-segment-button>
-      <ion-segment-button value="9" (click)="selectedTab(9)">
+      <ion-segment-button value="10" (click)="selectedTab(10)">
         BUSINESS
       </ion-segment-button>
-      <ion-segment-button value="10" (click)="selectedTab(10)">
+      <ion-segment-button value="11" (click)="selectedTab(11)">
         SPORTS
       </ion-segment-button>
-      <ion-segment-button value="11" (click)="selectedTab(11)">
+      <ion-segment-button value="12" (click)="selectedTab(12)">
         HEALTH
       </ion-segment-button>
-      <ion-segment-button value="12" style="word-wrap: break-word; width: auto" (click)="selectedTab(12)">
+      <ion-segment-button value="13" style="word-wrap: break-word; width: auto" (click)="selectedTab(13)">
         EDITOR'S PICK
       </ion-segment-button>
-      <ion-segment-button value="13" style="word-wrap: break-word; width: auto" (click)="selectedTab(13)">
+      <ion-segment-button value="14" style="word-wrap: break-word; width: auto" (click)="selectedTab(14)">
         COASTAL CINE WORLD
       </ion-segment-button>
-      <ion-segment-button value="14" style="word-wrap: break-word; width: auto" (click)="selectedTab(14)">
+      <ion-segment-button value="15" style="word-wrap: break-word; width: auto" (click)="selectedTab(15)">
         CAMPUS BEAT
       </ion-segment-button>
     </ion-segment>
@@ -84,17 +80,12 @@
   <ion-slides #slider (ionSlideDidChange)="slideChanged()">
     <ion-slide>
       <ion-list>
-        <ion-item *ngFor="let i of listNews" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)" [ngClass]="i.boxthis == 1 ? 'boxThis': ''"  >
+        <div *ngFor="let i of listNews">
+        <ion-item *ngIf="i.newsSection=='topstories'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)" [ngClass]="i.boxthis == 1 ? 'boxThis': ''"  >
           <!-- Topstories Slide -->
           <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
             <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
-          </ion-thumbnail>
-          <!-- <div *ngIf="i.boxthis == 1">
-            <h2 [innerHTML]="i.newsTitle" class="colorRed" text-wrap></h2>
-          </div>
-          <div *ngIf="i.boxthis == 0">
-            <h2 [innerHTML]="i.newsTitle" text-wrap></h2>
-          </div> -->
+          </ion-thumbnail> 
           <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
           <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp;
             <span *ngIf="i.newsComments !=0">
@@ -104,15 +95,32 @@
           </p>
           
         </ion-item>
-      </ion-list>
-      <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
+        </div>
+      </ion-list> 
     </ion-slide>
+
+    <ion-slide>
+      <ion-list>
+          <!-- Live Slide -->
+        <div *ngFor="let l of listDaijiLive" > 
+          <ion-item  (click)="goToLiveStream(l.hpVideoID)" >
+            <h2 style="color:red;" text-center [innerHTML]="l.hpVideoTitle" text-wrap></h2>
+            <img width="80" [defaultImage]="'../assets/imgs/daijiLiveImg.png'" [lazyLoad]="l.hpImageUrl" [scrollObservable]="container.ionScroll" />
+          </ion-item>
+        
+
+          <div *ngIf="l.status  =='Failure'" style="padding-bottom: 450px;" >
+            <br>
+            <b style="color: red;" >Live Not Available</b>
+          </div>
+        </div>
+      </ion-list>
+    </ion-slide>
+
     <ion-slide>
       <ion-list>
         <div *ngFor="let i of listNews">
-          <ion-item *ngIf="i.newsSection=='kar'" (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
+          <ion-item *ngIf="i.newsSection=='kar'"  (click)="newsDisplay(i.newsID,i.newsTitle,i.newsSection,i.newsComments)">
             <!-- Karnataka Slide -->
             <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
               <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />
@@ -120,7 +128,6 @@
             <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
             <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
                 <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
-
           </ion-item>
         </div>
       </ion-list>
@@ -135,8 +142,7 @@
             </ion-thumbnail>
             <h2 [innerHTML]="i.newsTitle" text-wrap>{{i.newsTitle}}</h2>
             <p><i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}&nbsp; <span *ngIf="i.newsComments !=0"> <i class="fa fa-comments-o colorRed"></i>
-                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span> </p>
-
+                <span class="colorRed" [innerHTML]="i.newsComments"></span> </span></p>
           </ion-item>
         </div>
       </ion-list>
@@ -333,11 +339,13 @@
 
     </ion-slide>
   </ion-slides> 
+
+  <div *ngIf="strNewsSection !='live'">
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
-  <ion-fab bottom right>
+  </div>
+  <!-- <ion-fab bottom right>
     <button ion-fab color="primary" >
       <i class="fa fa-eye"></i>
     </button>
@@ -354,10 +362,6 @@
       <button ion-fab color="danger" (click)="goToLiveStream();" >
           <i class="fa fa-video-camera"></i>
       </button> 
-    </ion-fab-list>
-    <!-- <ion-fab-list side="left">
-      <button ion-fab>Vimeo</button>
-    </ion-fab-list> -->
-  </ion-fab>
- 
+    </ion-fab-list> 
+  </ion-fab> --> 
 </ion-content>

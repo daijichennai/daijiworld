@@ -3,17 +3,21 @@ import { IonicPage, NavController, NavParams, LoadingController, MenuController 
 import { CommonFunctionProvider } from '../../providers/common-function/common-function';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Pipe, PipeTransform } from '@angular/core';
 
-
+@Pipe({ name: 'safe' })
 @IonicPage()
 @Component({
   selector: 'page-livestream',
   templateUrl: 'livestream.html',
 })
-export class LivestreamPage {
+export class LivestreamPage implements PipeTransform {
  
   public domainName: string = "";
-  public dwWeeklyJson: any;
+  public liveJson: any;
+  public intHpVideoID :number;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -21,17 +25,23 @@ export class LivestreamPage {
     public loadingCtrl: LoadingController,
     public http: HttpClient,
     public menuCtrl: MenuController,
+    public sanitizer: DomSanitizer
   ) {
 
-    // this.domainName = myFunc.domainName;
-    // this.getDaijiLiveData();
+    this.intHpVideoID = navParams.get('hpVideoID');
+    //alert(this.intHpVideoID);
+     this.domainName = myFunc.domainName;
+    this.getDaijiLiveData(this.intHpVideoID);
   }
 
-   getDaijiLiveData() {
-    let data: Observable<any>;
-    //alert(newsSection);
-    //let url = this.domainName + "mobileHandlers/daijiLive.ashx";
-     let url = "http://192.168.1.2/daijiworld/mobileHandlers/daijiLive.ashx";
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+   getDaijiLiveData(hpVideoID) {
+    let data: Observable<any>; 
+    let url = this.domainName + "mobileHandlers/daijiLive.ashx?mode=selectByID&hpVideoID=" + hpVideoID;
+     //let url = "http://192.168.1.2/daijiworld/mobileHandlers/daijiLive.ashx?mode=selectByID&hpVideoID=" + hpVideoID;
 
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -40,7 +50,7 @@ export class LivestreamPage {
     loader.present().then(() => {
       data.subscribe(result => {
         console.log(result);
-        this.dwWeeklyJson = result;
+        this.liveJson = result;
         loader.dismiss();
       })
     });

@@ -15,6 +15,8 @@ export class HomePage {
   page: any;
   items = [];
   public listNews:any;
+  public listDaijiLive: any;
+
   intLastNewsID :number;
   public domainName: string = "";
   public strNewsSection: string;
@@ -150,6 +152,24 @@ export class HomePage {
       }, 500);
     })
   }
+
+
+  getDaijiLive() {
+    let data: Observable<any>;
+    let url = this.domainName + "mobileHandlers/daijiLive.ashx?mode=list";
+    //let url = "http://192.168.1.2/daijiworld/mobileHandlers/daijiLive.ashx?mode=list";
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    data = this.http.get(url);
+    loader.present().then(() => {
+      data.subscribe(result => {
+        console.log(result);
+        this.listDaijiLive = result;
+        loader.dismiss();
+      })
+    });
+  }
  
   // Initialize slider
   ionViewDidEnter() {
@@ -171,42 +191,50 @@ export class HomePage {
     this.page = currentIndex.toString();
     if (this.page >= slides_count)
       this.page = (slides_count - 1).toString();
-    this.strNewsSection = this.newsMode(this.page)    
+    this.strNewsSection = this.newsMode(this.page); 
     console.log(this.strNewsSection);
-    this.displayNewsByCatCode();
+
+    if (this.strNewsSection ==="live"){
+      this.getDaijiLive();
+    }else{
+      this.displayNewsByCatCode();
+    }
+    
     this.centerScroll();
   }
 
   newsMode(pageIndex) {
     if (pageIndex == 0) {
       return "topstories"
-    } else if (pageIndex == 1) {
+    }else if (pageIndex == 1) {
+      return "live"
+    }else if (pageIndex == 2) {
       return "kar"
-    } else if (pageIndex == 2) {
-      return "obituary"
     } else if (pageIndex == 3) {
-      return "mah"
+      return "obituary"
     } else if (pageIndex == 4) {
-      return "goa"
+      return "mah"
     } else if (pageIndex == 5) {
-      return "me"
+      return "goa"
     } else if (pageIndex == 6) {
-      return "usa"
+      return "me"
     } else if (pageIndex == 7) {
-      return "others"
+      return "usa"
     } else if (pageIndex == 8) {
-      return "entertainment"
+      return "others"
     } else if (pageIndex == 9) {
-      return "business"
+      return "entertainment"
     } else if (pageIndex == 10) {
-      return "sports"
+      return "business"
     } else if (pageIndex == 11) {
-      return "health"
+      return "sports"
     } else if (pageIndex == 12) {
-      return "editor"
+      return "health"
     } else if (pageIndex == 13) {
-      return "coastalCineWorld"
+      return "editor"
     } else if (pageIndex == 14) {
+      return "coastalCineWorld"
+    } else if (pageIndex == 15) {
       return "campusBeat"
     }
 
@@ -256,20 +284,27 @@ export class HomePage {
     }, 1000 / 60); // 60 fps
   }
 
-  goToLiveStream(){
-    this.navCtrl.push('LivestreamPage');
+  goToLiveStream(hpVideoID:number){
+    this.navCtrl.push('LivestreamPage',{
+      "hpVideoID": hpVideoID
+    });
   }
 
-  goToDwTv247() {
-    this.navCtrl.push('Dwtv247Page');
+  goToLiveList(){
+    this.navCtrl.push('LiveListPage');
   }
 
-  goToRadio() {
-    this.navCtrl.push('RadioPage');
-  }
 
-  goToDwweekly(){
-    this.navCtrl.push('DwweeklyPage');
-  }
+  // goToDwTv247() {
+  //   this.navCtrl.push('Dwtv247Page');
+  // }
+
+  // goToRadio() {
+  //   this.navCtrl.push('RadioPage');
+  // }
+
+  // goToDwweekly(){
+  //   this.navCtrl.push('DwweeklyPage');
+  // }
 
 }

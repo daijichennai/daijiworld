@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Live Stream</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="toggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+<ion-list>
+  <div *ngFor="let l of listDaijiLive">
+    <ion-item (click)="goToLiveStream(l.hpVideoID)">
+      <h2 style="color:red;" text-center [innerHTML]="l.hpVideoTitle" text-wrap></h2>
+      <br>
+      <img text-center width="300"   [src]="l.hpImageUrl" />
+    </ion-item>
+  </div>
+</ion-list>
+</ion-content>
