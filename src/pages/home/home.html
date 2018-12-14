@@ -156,22 +156,37 @@
       </div>
     </ion-list>
 </ion-slide>
-    <ion-slide>
-      <ion-list>
+    <ion-slide  >  
           <!-- Live Slide -->
         <div *ngFor="let l of listDaijiLive" > 
-          <ion-item  (click)="goToLiveStream(l.hpVideoID)" >
-            <h2 style="color:red;" text-center [innerHTML]="l.hpVideoTitle" text-wrap></h2>
-            <img style="width: 100%" [defaultImage]="'../assets/imgs/lazyCardLogo.png'" [lazyLoad]="l.hpImageUrl" [scrollObservable]="container.ionScroll" />
-          </ion-item>
-        
+          
+            <ion-card  >
+              <div (click)="goToLiveStream(l.hpVideoID)">
+              <img style="width: 100%" [defaultImage]="'../assets/imgs/lazyCardLogo.png'" [lazyLoad]="l.hpImageUrl"
+                [scrollObservable]="container.ionScroll" />
+              <ion-card-content>
+                <ion-card-title>
+                  <h2 style="color:red;" text-center [innerHTML]="l.hpVideoTitle" text-wrap></h2>
+                </ion-card-title>
+              </ion-card-content>
+              </div>
+              <ion-row>
+                <ion-col col-12>
+                  <button ion-button icon-start full small (click)="shareLiveTv(l.hpVideoID,l.hpVideoActive,l.hpVideoTitle);">
+                    <ion-icon name="share-alt"></ion-icon>
+                    Share
+                  </button>
+                </ion-col>
+              
+              </ion-row>
 
+            </ion-card>
+             
           <div *ngIf="l.status  =='Failure'" style="padding-bottom: 450px;" >
             <br>
             <b style="color: red;" >Live Not Available</b>
-          </div>
-        </div>
-      </ion-list>
+          </div> 
+        </div>   
     </ion-slide>
 
     <ion-slide>

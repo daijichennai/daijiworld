@@ -25,7 +25,9 @@ export class HomePage {
   connected: Subscription;
   disconnected: Subscription;
   public toastConnectedCount: number = 0;
- 
+  // public intHpVideoID: number;
+  // public strHpVideoTitle: string = "";
+  // public isHpVideoActive: boolean = false;
 
   constructor(
       public navCtrl: NavController,
@@ -168,16 +170,28 @@ export class HomePage {
       data.subscribe(result => {
         console.log(result);
         this.listDaijiLive = result;
+        // this.intHpVideoID = result[0].hpVideoID;
+        // this.isHpVideoActive = result[0].hpVideoActive;
+        // this.strHpVideoTitle = result[0].hpVideoTitle;
         loader.dismiss();
       })
     });
   }
 
-  shareNews(newsTitle, newsID) {
-    let shareLink = this.domainName + "news/newsDisplay.aspx?newsID=" + newsID;
-    this.socialSharing.share(newsTitle, null, null, shareLink).then(() => {
+  shareLiveTv(hpVideoID:number,isActive:boolean,videoTitle:string) {
+    //alert(this.newsID);
+    let shareLink = "";
+
+    if (isActive == false) {
+      shareLink = "https://www.daijiworld247.com/";
+    } else {
+      shareLink = this.domainName + "news/homeLiveProgram.aspx?hpVideoID=" + hpVideoID;
+    }
+
+    this.socialSharing.share(videoTitle, null, null, shareLink).then(() => {
       console.log('success');
-    }).catch(() => {
+    }).catch((error) => {
+      console.log(error);
       console.log('error');
     });
   }
