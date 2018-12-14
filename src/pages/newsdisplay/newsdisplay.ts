@@ -110,10 +110,12 @@ export class NewsdisplayPage {
     //console.log(newsMode);
     if (newsMode =="homeTopStories"){
       newsMode ="topstories";
-    }
+    } 
     let data: Observable<any>;
-
+    // alert(newsID);
+    // alert(newsMode);
     let url = this.domainName + "mobileHandlers/singleNews.ashx?newsID=" + newsID + "&newsMode=" + newsMode;
+    
 
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'

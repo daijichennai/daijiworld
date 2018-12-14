@@ -16,6 +16,8 @@ export class CommonFunctionProvider {
       return "TOP STORIES";
     }else if (newsMode === "topstories") {
       return "TOP STORIES";
+    }else if (newsMode === "news") {
+      return "HEADLINES";
     } else if (newsMode === "kar") {
       return "KARNATAKA";
     } else if (newsMode === "obituary") {

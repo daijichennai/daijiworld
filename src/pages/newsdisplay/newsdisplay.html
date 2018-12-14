@@ -23,13 +23,13 @@
 
     <ion-row>
       <ion-col>
-        <i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}}
+        <i class="fa fa-clock-o"></i>&nbsp;{{i.newsDate}} &nbsp;
 
-        <span class="colorRed" [innerHTML]="i.newsComments"></span>
+        <span class="colorRed" *ngIf="i.newsComments!=0" [innerHTML]="i.newsComments"></span>
       </ion-col>
     </ion-row>
 
-    <p ion-text text-justify [innerHtml]="i.newsDesc"></p>
+    <p ion-text class="descFont" text-justify [innerHtml]="i.newsDesc"></p>
     <!-- <ion-item-divider ></ion-item-divider> -->
   </div>
 
@@ -43,7 +43,7 @@
             <div class="comment-box">
               <div class="comment-head" class="{{chkSubLvlBgColor(ec.ecDotsLevel)}}" >
                 <div class="card-header" style="padding-top:10px;padding-left:10px;" >
-                  <div class="commentName" style="font-size:12px;" >
+                  <div class="commentName" style="font-size:12px;line-height: 1.5em;" >
                     {{ec.ecName}} ,&nbsp;<i class="fa fa-map-marker"></i>&nbsp; {{ec.ecPlace}} <br/>
                     <span class="commentDate"><i class="fa fa-calendar"></i>&nbsp;{{ec.ecDate}}
                     </span></div>

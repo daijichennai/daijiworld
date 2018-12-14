@@ -14,7 +14,13 @@
   <div class="card" *ngFor="let l of liveJson"  >
     <h3 style="color:red;" text-center  [innerHTML]="l.hpVideoTitle" ></h3>
       <div *ngIf="l.hpVideoMode == 'Youtube' " class="video-container"> 
-        <iframe [src]="transform(l.hpVideoCode)" allowFullScreen></iframe>  
+        <!-- <iframe [src]="transform(l.hpVideoCode)" allowFullScreen></iframe>   -->
+        <!-- <iframe [src]="transform(l.hpVideoCode)" width="560" height="315" frameborder="0" 
+        allowfullscreen="allowfullscreen"></iframe> -->
+         <button ion-button full (click)="goLive()" >
+            Go Live
+         </button>
+           
       </div>
 
       <div *ngIf="l.hpVideoMode == 'FaceBook' "  >        

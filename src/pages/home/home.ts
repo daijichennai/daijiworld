@@ -217,35 +217,37 @@ export class HomePage {
   newsMode(pageIndex) {
     if (pageIndex == 0) {
       return "topstories"
-    }else if (pageIndex == 1) {
-      return "live"
+    } else if (pageIndex == 1) {
+      return "headlines"
     }else if (pageIndex == 2) {
+      return "live"
+    }else if (pageIndex == 3) {
       return "kar"
-    } else if (pageIndex == 3) {
-      return "obituary"
     } else if (pageIndex == 4) {
-      return "mah"
+      return "obituary"
     } else if (pageIndex == 5) {
-      return "goa"
+      return "mah"
     } else if (pageIndex == 6) {
-      return "me"
+      return "goa"
     } else if (pageIndex == 7) {
-      return "usa"
+      return "me"
     } else if (pageIndex == 8) {
-      return "others"
+      return "usa"
     } else if (pageIndex == 9) {
-      return "entertainment"
+      return "others"
     } else if (pageIndex == 10) {
-      return "business"
+      return "entertainment"
     } else if (pageIndex == 11) {
-      return "sports"
+      return "business"
     } else if (pageIndex == 12) {
-      return "health"
+      return "sports"
     } else if (pageIndex == 13) {
-      return "editor"
+      return "health"
     } else if (pageIndex == 14) {
-      return "coastalCineWorld"
+      return "editor"
     } else if (pageIndex == 15) {
+      return "coastalCineWorld"
+    } else if (pageIndex == 16) {
       return "campusBeat"
     }
 

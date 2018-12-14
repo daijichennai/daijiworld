@@ -13,6 +13,8 @@ import { Network } from "@ionic-native/network";
 import { CommonFunctionProvider } from '../providers/common-function/common-function';
 import { Market } from '@ionic-native/market';
 import { Firebase } from '@ionic-native/firebase';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -36,6 +38,7 @@ import { Firebase } from '@ionic-native/firebase';
     Network,
     Market,
     Firebase,
+    InAppBrowser,
     CommonFunctionProvider
   ]
 })

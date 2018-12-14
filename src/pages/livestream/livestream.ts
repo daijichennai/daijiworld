@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
+import { InAppBrowser, InAppBrowserOptions  } from '@ionic-native/in-app-browser';
 
 @Pipe({ name: 'safe' })
 @IonicPage()
@@ -25,17 +26,33 @@ export class LivestreamPage implements PipeTransform {
     public loadingCtrl: LoadingController,
     public http: HttpClient,
     public menuCtrl: MenuController,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private iab: InAppBrowser
   ) {
 
     this.intHpVideoID = navParams.get('hpVideoID');
     //alert(this.intHpVideoID);
      this.domainName = myFunc.domainName;
     this.getDaijiLiveData(this.intHpVideoID);
+      
+  }
+
+  goLive(){
+    this.getDaijiLiveData(this.intHpVideoID);
   }
 
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  openWebpage(url: string) {
+    const options: InAppBrowserOptions = {
+      zoom: 'no'
+    }
+
+    // Opening a URL and returning an InAppBrowserObject
+    this.iab.create(url, '_self', options);
+ 
   }
 
    getDaijiLiveData(hpVideoID) {
@@ -49,8 +66,11 @@ export class LivestreamPage implements PipeTransform {
     data = this.http.get(url);
     loader.present().then(() => {
       data.subscribe(result => {
-        console.log(result);
+        //console.log(result[0].hpVideoCode);
         this.liveJson = result;
+        if (result[0].hpVideoMode == "Youtube"){
+          this.openWebpage(result[0].hpVideoCode);
+        }        
         loader.dismiss();
       })
     });
