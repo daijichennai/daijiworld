@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SocialSharing } from "@ionic-native/social-sharing";
 import { CommonFunctionProvider } from '../../providers/common-function/common-function';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -24,13 +25,19 @@ export class NewsdisplayPage {
   public fromPage:string="";
   public showAgreeDisagree:boolean;
   public showThumbsUp:boolean;
+
+  public isIframe: boolean = false;
+  public iframeURL: string = "";
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public menuCtrl: MenuController,
     public http: HttpClient,
     public loadingCtrl: LoadingController,
     public socialSharing: SocialSharing,
-    public myFunc: CommonFunctionProvider
+    public myFunc: CommonFunctionProvider,
+    public sanitizer: DomSanitizer
+
   ) {
 
     this.domainName = myFunc.domainName;
@@ -52,6 +59,27 @@ export class NewsdisplayPage {
   // closeModel(){
   //   this.navCtrl.pop();
   // }
+
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  chkIframe(newsDesc) {
+    var iframeRegex = /(?:<iframe[^>]*)(?:(?:\/>)|(?:>.*?<\/iframe>))/g;
+    var findIframe = newsDesc.match(iframeRegex);
+
+    if (newsDesc.match(iframeRegex)) {
+      this.isIframe = true;
+
+      var srcRegex = /\s*\s*"(.+?)"/g;
+      var findIframeUrl = findIframe[0].match(srcRegex);
+
+      this.iframeURL = findIframeUrl[0].replace(/"/g, "");
+
+      console.log(findIframeUrl[0].replace(/"/g, ""));
+    }
+  }
+
 
   displayEmailCommentsByNewsID(newsID: number) {
     let newsComment: Observable<any>;
@@ -128,6 +156,10 @@ export class NewsdisplayPage {
         this.singleNewsData = result;
         this.showAgreeDisagree = result[0].showLikeDislike;
         this.showThumbsUp = result[0].showThumbsUp;
+
+        this.chkIframe(result[0].newsDesc);
+
+
         loader.dismiss();
         //alert(this.intNewsComments);
         if (this.intNewsComments != 0) {

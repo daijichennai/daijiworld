@@ -30,6 +30,13 @@
     </ion-row>
 
     <p ion-text class="descFont" text-justify [innerHtml]="i.newsDesc"></p>
+
+    <div *ngIf="isIframe">
+      <div class="iframe-wrapper">
+        <iframe width="100%" [src]="transform(iframeURL)" scrolling="yes"></iframe>
+      </div>
+    </div>
+
     <!-- <ion-item-divider ></ion-item-divider> -->
   </div>
 

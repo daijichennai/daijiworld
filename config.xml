@@ -54,5 +54,6 @@
     <plugin name="cordova-plugin-market" spec="^1.2.0" />
     <plugin name="cordova-plugin-firebase" spec="^2.0.5" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="7.1.4" />
+    <plugin name="cordova-plugin-screen-orientation" spec="3.0.1" />
 </widget>
