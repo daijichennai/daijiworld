@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
 import { InAppBrowser, InAppBrowserOptions  } from '@ionic-native/in-app-browser';
+import { ScreenOrientation } from "@ionic-native/screen-orientation";
 
 @Pipe({ name: 'safe' })
 @IonicPage()
@@ -27,7 +28,8 @@ export class LivestreamPage implements PipeTransform {
     public http: HttpClient,
     public menuCtrl: MenuController,
     public sanitizer: DomSanitizer,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    public screenOrientation: ScreenOrientation,
   ) {
 
     this.intHpVideoID = navParams.get('hpVideoID');
@@ -45,15 +47,35 @@ export class LivestreamPage implements PipeTransform {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+
+  lockLandscape() {
+    //alert('Orientation locked landscape.');
+    this.screenOrientation.lock('landscape');
+  }
+
+
+  lockPortrait() {
+    //alert('Orientation locked portrait.');
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+  }
+
   openWebpage(url: string) {
+    this.lockLandscape();
     const options: InAppBrowserOptions = {
-      zoom: 'no'
+      toolbar: 'no',
+      location: 'no',
+      zoom: 'no',
+      fullscreen: 'yes',
     }
 
     // Opening a URL and returning an InAppBrowserObject
-    this.iab.create(url, '_self', options);
- 
-  }
+    //this.iab.create(url, '_system', options);
+    const browser = this.iab.create(url, '_blank', options);
+    browser.on('exit').subscribe(event => {
+      //alert('exit');
+      this.lockPortrait()
+    });
+  } 
 
    getDaijiLiveData(hpVideoID) {
     let data: Observable<any>; 

@@ -1,74 +1,115 @@
 page-display-news {
-
 }
 
-.colorRed{
-    color:red;
-}
-img{
+// .embedresize {
+// max-width: 560px;
+// margin: auto;
+// }
+
+// .embedresize div {
+// position: relative;
+// height: 0;
+// padding-bottom: 56.25%;
+// }
+
+// .embedresize iframe {
+// position: absolute;
+// top: 0;
+// left: 0;
+// width: 100%;
+// height: 100%;
+// }
+
+iframe {
     width: 100%;
-}
-
-.descFont{
-    font-size: 16px;
-     line-height: 1.5em;
-}
-
-.comments-container {
-    padding: 0px;
-    margin-left: -30px;
-    margin-right: 5px;
-    background-color: #fff;
-}
-
-.grayColor{
-    height: 50px;
-    background-color:#EFEFEF;
-}
-
-.greenColor{
-    height: 50px;
-    background-color:#CFF3D1
-}
-.violetColor{
-    height: 50px;
-    background-color:#E1E2F5
-}
-.orangeColor{
-    height: 50px;
-    background-color:#CFFBFF;
-} 
-
-.comments-list1 {
-    list-style-type: none;
-  
-}
-
- .comment-Date {
-    color:#2C2C2A; 
-    font-size:15px; 
-    font-weight: 500;
-}
-   
-.comment-box .comment-name {
-    color: #283035;
-    font-size: 14px;
-    float: left; 
-    font-weight: 100;
-}
-
-.comment-box .comment-name a {
-    color: #283035;
+  max-width: 400px;
+  height: auto !important;
 }
  
-
-.comment-box .comment-content {
-    background: transparent;
-    padding: 1px;
-    font-size: 15px;
-    color: #595959;
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
 }
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+    .colorRed{
+        color:red;
+    }
+    img{
+        width: 100%;
+    }
+
+    .descFont{
+        font-size: 16px;
+        line-height: 1.5em;
+    }
+
+    .comments-container {
+        padding: 0px;
+        margin-left: -30px;
+        margin-right: 5px;
+        background-color: #fff;
+    }
+
+    .grayColor{
+        height: 50px;
+        background-color:#EFEFEF;
+    }
+
+    .greenColor{
+        height: 50px;
+        background-color:#CFF3D1
+    }
+    .violetColor{
+        height: 50px;
+        background-color:#E1E2F5
+    }
+    .orangeColor{
+        height: 50px;
+        background-color:#CFFBFF;
+    } 
+
+    .comments-list1 {
+        list-style-type: none;
+    
+    }
+
+    .comment-Date {
+        color:#2C2C2A; 
+        font-size:15px; 
+        font-weight: 500;
+    }
+    
+    .comment-box .comment-name {
+        color: #283035;
+        font-size: 14px;
+        float: left; 
+        font-weight: 100;
+    }
+
+    .comment-box .comment-name a {
+        color: #283035;
+    }
+    
+
+    .comment-box .comment-content {
+        background: transparent;
+        padding: 1px;
+        font-size: 15px;
+        color: #595959;
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
   

@@ -14,6 +14,7 @@ import { CommonFunctionProvider } from '../providers/common-function/common-func
 import { Market } from '@ionic-native/market';
 import { Firebase } from '@ionic-native/firebase';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     Market,
     Firebase,
     InAppBrowser,
+    ScreenOrientation,
     CommonFunctionProvider
   ]
 })

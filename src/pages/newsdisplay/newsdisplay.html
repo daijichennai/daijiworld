@@ -32,8 +32,10 @@
     <p ion-text class="descFont" text-justify [innerHtml]="i.newsDesc"></p>
 
     <div *ngIf="isIframe">
-      <div class="iframe-wrapper">
-        <iframe width="100%" [src]="transform(iframeURL)" scrolling="yes"></iframe>
+      <div class="video-container">
+      <div >
+        <iframe [src]="transform(iframeURL)" style="border:none;overflow:hidden;" frameborder="0" allowTransparency="true" scrolling="yes"></iframe>
+      </div>
       </div>
     </div>
 

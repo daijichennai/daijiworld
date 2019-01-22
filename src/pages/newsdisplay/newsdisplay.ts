@@ -88,7 +88,7 @@ export class NewsdisplayPage {
     newsComment = this.http.get(url);
     newsComment.subscribe(commentResult => {
       this.newsCommentsData = commentResult;
-      console.log(commentResult);
+      //console.log(commentResult);
     })
   }
 
@@ -105,8 +105,8 @@ export class NewsdisplayPage {
         } else if (data[0].agreeMode === "disagree") {
           document.getElementById('upDisagreeValue' + ecID).innerHTML = "&nbsp; " + data[0].count;
         }
-        console.log(data[0].agreeMode);
-        console.log(data[0].count);
+        // console.log(data[0].agreeMode);
+        // console.log(data[0].count);
       },
       error => {
         console.log(error);
@@ -151,12 +151,13 @@ export class NewsdisplayPage {
     loader.present().then(() => {
       data = this.http.get(url);
       data.subscribe(result => {
-        console.log(result);
-        console.log(result[0].showLikeDislike);
+        // console.log(result);
+        // console.log(result[0].showLikeDislike);
         this.singleNewsData = result;
         this.showAgreeDisagree = result[0].showLikeDislike;
         this.showThumbsUp = result[0].showThumbsUp;
 
+        //console.log(result[0].newsDesc);
         this.chkIframe(result[0].newsDesc);
 
 

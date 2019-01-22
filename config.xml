@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="300" id="com.daijiworld.android" version="3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="301" id="com.daijiworld.android" version="3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Daijiworld</name>
     <description>A News portal linking West Coast of India and the World.</description>
     <author email="karthik@daijiworld" href="https://www.daijiworld.com">
@@ -13,6 +13,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="orientation" value="portrait" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="26" />
     <preference name="BackupWebStorage" value="none" />
@@ -54,6 +55,6 @@
     <plugin name="cordova-plugin-market" spec="^1.2.0" />
     <plugin name="cordova-plugin-firebase" spec="^2.0.5" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
-    <engine name="android" spec="7.1.4" />
     <plugin name="cordova-plugin-screen-orientation" spec="3.0.1" />
+    <engine name="android" spec="7.1.4" />
 </widget>
