@@ -50,8 +50,6 @@ export class MyApp {
       { title: 'Classifieds', component: 'ListPage', icon: 'fa fa-bullseye', newsMode: 'classifieds' },
       { title: 'Recipes', component: 'RecipeListPage', icon: 'fa fa-cutlery', newsMode: 'recipeCategory' },
       { title: 'Daijiworld Weekly', component: 'DwweeklyPage', icon: 'fa fa-newspaper-o', newsMode: 'weekly' },
-      { title: 'Daijiworld 24*7', component: 'Dwtv247Page', icon: 'fa fa-television', newsMode: 'daijiworld247' },
-      { title: 'Radio', component: 'RadioPage', icon: 'fa fa-headphones', newsMode: 'radio' },
       { title: 'Settings', component: 'SettingsPage', icon: 'fa fa-cog', newsMode: 'settings' },
     ];
 

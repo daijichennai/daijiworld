@@ -79,7 +79,15 @@ export class CommentsPage {
     this.http.post(insCommentURL, "").subscribe(
       data => {
         console.log(data);
-        this.presentAlert()
+        let msg ='';
+        if (data[0].msg ==="inserted"){
+          msg = 'If your comment adheres to Daijiworld.com norms, it will be published within the next 24 hours.\n Thank You...';
+          this.presentAlert(msg);
+        } else if (data[0].msg === "errorOccurred"){
+          msg = 'Something went wrong.Please try again later';
+          this.presentAlert(msg);
+        }
+        //this.presentAlert()
         this.navCtrl.pop();  
       },
       error => {
@@ -88,10 +96,10 @@ export class CommentsPage {
 
   }
 
-  presentAlert() {
+  presentAlert(msgText) {
     let alert = this.alertCtrl.create({
       title: '',
-      subTitle: 'If your comment adheres to Daijiworld.com norms, it will be published within the next 24 hours.\n Thank You...',
+      subTitle: msgText, // 'If your comment adheres to Daijiworld.com norms, it will be published within the next 24 hours.\n Thank You...',
       buttons: ['Dismiss']
     });
     alert.present();
