@@ -28,6 +28,7 @@ export class NewsdisplayPage {
 
   public isIframe: boolean = false;
   public iframeURL: string = "";
+  public n_loc : string = "";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -47,9 +48,17 @@ export class NewsdisplayPage {
     this.strNewsSection = navParams.get('newsSection');
     this.intNewsComments = navParams.get('newsComments');
     this.fromPage = navParams.get('fromPage');
+    this.n_loc = navParams.get('n_loc');
     this.dispNewsSectionName = this.myFunc.displayNewsSection(this.strNewsSection);
     //alert(this.strNewsSection);
-    this.newsDisplayByID(this.intNewsID, this.strNewsSection);
+
+    if (this.strNewsSection === "matrimonialMale" || this.strNewsSection === "matrimonialFemale" || this.strNewsSection === "jobs"){
+        this.newsDisplayByID(this.intNewsID, this.strNewsSection);
+    }else{
+      this.newsDisplayByID(this.intNewsID, this.n_loc);
+    }
+     //this.newsDisplayByID(this.intNewsID, this.strNewsSection);
+    //this.newsDisplayByID(this.intNewsID, this.n_loc);
 
    
    
@@ -84,7 +93,8 @@ export class NewsdisplayPage {
   displayEmailCommentsByNewsID(newsID: number) {
     let newsComment: Observable<any>;
 
-    let url = this.domainName + "mobileHandlers/androidEmailComments.ashx?mode=dispComment&newsID=" + newsID + "&newsSection=" + this.strNewsSection;
+    //let url = this.domainName + "mobileHandlers/androidEmailComments.ashx?mode=dispComment&newsID=" + newsID + "&newsSection=" + this.strNewsSection;
+    let url = this.domainName + "mobileHandlers/androidEmailComments.ashx?mode=dispComment&newsID=" + newsID + "&newsSection=" + this.n_loc;
     newsComment = this.http.get(url);
     newsComment.subscribe(commentResult => {
       this.newsCommentsData = commentResult;
@@ -120,7 +130,7 @@ export class NewsdisplayPage {
     this.navCtrl.push('CommentsPage',{
       "newsTitle": this.newsTitle,
       "newsID":this.intNewsID,
-      "newsSection": this.strNewsSection
+      "newsSection": this.n_loc
     });
   }
 
@@ -130,7 +140,7 @@ export class NewsdisplayPage {
       "ecID": ecID,
       "newsTitle": this.newsTitle,
       "newsID": this.intNewsID,
-      "newsSection": this.strNewsSection
+      "newsSection": this.n_loc
     });
   }
 
@@ -143,8 +153,6 @@ export class NewsdisplayPage {
     // alert(newsID);
     // alert(newsMode);
     let url = this.domainName + "mobileHandlers/singleNews.ashx?newsID=" + newsID + "&newsMode=" + newsMode;
-    
-
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -156,12 +164,15 @@ export class NewsdisplayPage {
         this.singleNewsData = result;
         this.showAgreeDisagree = result[0].showLikeDislike;
         this.showThumbsUp = result[0].showThumbsUp;
-
-        //console.log(result[0].newsDesc);
-        this.chkIframe(result[0].newsDesc);
-
-
         loader.dismiss();
+        //console.log(result[0].newsDesc);
+
+        setTimeout(() => {
+          loader.dismiss();
+        }, 10000);
+
+        this.chkIframe(result[0].newsDesc);
+      
         //alert(this.intNewsComments);
         if (this.intNewsComments != 0) {
           this.hideShowDiv = true;
@@ -189,13 +200,22 @@ export class NewsdisplayPage {
   shareNews() {
     //alert(this.newsID);
     let shareLink = "";
-    if (this.strNewsSection ==="obituary"){
+    if (this.n_loc ==="obituary"){
       shareLink = this.domainName + "chan/obituaryDisplay.aspx?obituaryID=" + this.intNewsID;
-    } else if (this.strNewsSection === "exclusive"){
+    } else if (this.n_loc === "exclusive"){
       shareLink = this.domainName + "chan/exclusiveDisplay.aspx?articlesID=" + this.intNewsID;
+    }else if (this.n_loc === "property") {
+      shareLink = this.domainName + "classifieds/properties.aspx?pID=" + this.intNewsID;
+    } else if (this.n_loc === "matrimonial") {
+      shareLink = this.domainName + "classifieds/matrimonial.aspx?mID=" + this.intNewsID;
+    } else if (this.n_loc === "jobs_classifieds") {
+      shareLink = this.domainName + "classifieds/jobs.aspx?jID=" + this.intNewsID;
+    } else if (this.n_loc === "classifieds") {
+      shareLink = this.domainName + "classifieds/classifieds.aspx?cID=" + this.intNewsID;
     }else{
       shareLink = this.domainName + "news/newsDisplay.aspx?newsID=" + this.intNewsID;
     }
+    // alert(this.n_loc);
     //let shareLink = this.domainName + "news/newsDisplay.aspx?newsID=" + this.intNewsID;
     this.socialSharing.share(this.newsTitle, null, null, shareLink).then(() => {
       console.log('success');

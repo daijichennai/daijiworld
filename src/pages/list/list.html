@@ -12,7 +12,7 @@
 
 <ion-content #container>
 <div *ngFor="let i of listNews">
-  <ion-item (click)="newsDisplay(i.newsID,i.newsTitle,i.newsComments)">
+  <ion-item (click)="newsDisplay(i.newsID,i.newsTitle,i.newsComments,i.n_loc)">
     <!-- Campus beat Slide -->
     <ion-thumbnail item-left *ngIf=" i.newsImage != ''">
       <img [defaultImage]="'../assets/imgs/lazyDaijiLogo.png'" [lazyLoad]="i.newsImage" [scrollObservable]="container.ionScroll" />

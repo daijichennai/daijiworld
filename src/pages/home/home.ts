@@ -91,12 +91,13 @@ export class HomePage {
     }
   }
 
-  newsDisplay(newsID: number, newsTitle: string, newsSection: string,newsComments:number) {
+  newsDisplay(newsID: number, newsTitle: string, newsSection: string,newsComments:number,n_loc :string) {
     this.navCtrl.push('NewsdisplayPage', {
       newsID: newsID,
       newsTitle: newsTitle,
       newsSection: newsSection,
-      newsComments: newsComments
+      newsComments: newsComments,
+      n_loc: n_loc
     });
     
   }

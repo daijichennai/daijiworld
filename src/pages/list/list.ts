@@ -44,7 +44,7 @@ export class ListPage {
  
   }
 
-  newsDisplay(newsID: number, newsTitle: string, newsComments: number) {
+  newsDisplay(newsID: number, newsTitle: string, newsComments: number,n_loc :string) {
     let fromPage ="";
     if(this.newsMode =="exclusive"){
       fromPage ="exclusive"
@@ -56,7 +56,8 @@ export class ListPage {
       "newsTitle": newsTitle,
       "newsSection": this.newsMode ,
       "newsComments": newsComments,
-      "fromPage": fromPage
+      "fromPage": fromPage,
+      "n_loc": n_loc
     });
   }
 
@@ -70,7 +71,7 @@ export class ListPage {
     data = this.http.get(url);
     loader.present().then(() => {
       data.subscribe(result => {
-        //console.log(result);
+        console.log(result);
         this.listNews = result;
         let dataLength = this.listNews.length;
         this.intLastNewsID = this.listNews[dataLength - 1].newsID;

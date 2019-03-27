@@ -46,11 +46,12 @@ export class RecipedisplayPage {
     });
   }
 
-  singleRecipebyID(recipeID:number,newsTitle:string){
+  singleRecipebyID(recipeID:number,newsTitle:string,noOfComments:number){
     this.navCtrl.push('RecipeSinglePage',{
       "recipeID": recipeID,
       "newsTitle": newsTitle,
-      "newsMode":"recipe_det"
+      "newsMode":"recipe_det",
+      "noOfComments": noOfComments
     })
   }
 

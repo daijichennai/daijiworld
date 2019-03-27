@@ -16,6 +16,7 @@ export class RecipeSinglePage {
   recipeID: number;
   newsTitle:string;
   public recipeComments: any;
+  public noOfComments:number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -29,6 +30,8 @@ export class RecipeSinglePage {
     this.newsMode = navParams.get('newsMode');
     this.recipeID = navParams.get('recipeID');
     this.newsTitle = navParams.get('newsTitle');
+    this.noOfComments = navParams.get('noOfComments');
+    //alert(this.noOfComments);
     // alert(this.newsMode);
     // alert(this.recipeID);
     this.getSingleRecipe(this.newsMode, this.recipeID)

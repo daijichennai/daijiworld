@@ -63,19 +63,19 @@
                 <div class="comment-content">
                   <p text-justify [innerHTML]="ec.ecComments" style="padding-left:10px;"></p>
                   <!--This is for Reply & Report Abuse button-->
-                  <div *ngIf="strNewsSection!='obituary'">
+                  <div *ngIf="n_loc!='obituary'">
                   <ion-row>
                     <ion-col text-center>
-                      <button *ngIf="strNewsSection !='exclusive' " ion-button color="danger" small (click)="replyFn(ec.ecID,'reportAbuse')">
+                      <button *ngIf="n_loc !='exclusive' " ion-button color="danger" small (click)="replyFn(ec.ecID,'reportAbuse')">
                         <div>Report Abuse</div>
                       </button>
               
-                      <button *ngIf="strNewsSection !='exclusive' " ion-button color="info" small (click)="replyFn(ec.ecID,'reply')">
+                      <button *ngIf="n_loc !='exclusive' " ion-button color="info" small (click)="replyFn(ec.ecID,'reply')">
                         <ion-icon name="ios-undo"></ion-icon>
                         <div>&nbsp;Reply</div>
                       </button>
 
-                      <button *ngIf="showThumbsUp || strNewsSection ==='exclusive' " ion-button color="secondary" small>
+                      <button *ngIf="showThumbsUp || n_loc ==='exclusive' " ion-button color="secondary" small>
                         <ion-icon name="thumbs-up" (click)="agreeDisAgreeFn(1,ec.ecID)" id="upAgreeValue{{ec.ecID}}">
                           &nbsp;{{ec.ecAgree}}
                         </ion-icon>
@@ -106,7 +106,7 @@
   </div>  
  
   
-  <ion-fab *ngIf="fromPage!='listPage' || strNewsSection!='obituary'" bottom right padding (click)="shareNews()">
+  <ion-fab *ngIf="fromPage!='listPage' || n_loc!='obituary'" bottom right padding (click)="shareNews()">
     <button ion-fab><i class="fa fa-share-alt"></i></button>
   </ion-fab>
   

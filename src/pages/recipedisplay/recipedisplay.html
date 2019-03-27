@@ -11,7 +11,7 @@
 
 <ion-content>
 <div *ngFor="let r of recipeJson">
-  <ion-card (click)="singleRecipebyID(r.newsID,r.newsTitle)" >
+  <ion-card (click)="singleRecipebyID(r.newsID,r.newsTitle,r.newsComments)" >
     <ion-card-header>
       <h2 [innerHTML]="r.newsTitle" text-wrap>{{r.newsTitle}}</h2>
     </ion-card-header>
