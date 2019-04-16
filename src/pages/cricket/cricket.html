@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{toolTitle}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="toggleMenu();">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="isHideMatch">
+    <h6 style="color:red;text-align: center;">
+      No Match Available
+    </h6>
+  </div>
+
+  <div *ngFor="let c of cricketJson">
+    <div class="tile" (click)="goToScoreCard(c.match_id)">
+      <div class="wrapper">
+        <h4 class="text-center compTitle ">{{c.competition.title}}</h4>
+        <div class="stats">
+          <div style="padding:10px;">
+            <strong>
+                <img src="{{iplLogo(c.teama.name,c.teama.logo_url)}}" style="height:50px;width:50px;" class="img-circle" alt="Avatar">
+            </strong> {{c.teama.scores_full}}
+          </div>
+          <div style="text-align: center;vertical-align: middle;line-height: 100px; ">
+            <b>Vs</b>
+          </div>
+          <div style="padding:10px;">
+            <strong>
+                <img src="{{iplLogo(c.teamb.name,c.teamb.logo_url)}}" style="height:50px;width:50px;" class="img-circle" alt="Avatar">
+            </strong>{{c.teamb.scores_full}}
+          </div>
+        </div>
+        <h4 class="compTitle ">{{c.status_note}}</h4>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="matchMode ==='iccRanking'"  >
+    <table width="100%">
+      <tr>
+        <th text-center colspan="2">Teams</th>
+        <th text-center>P</th>
+        <th text-center>W</th>
+        <th text-center>L</th>
+        <th text-center>D</th>
+        <th text-center>NR</th>
+        <th text-center>PTS</th>
+        <th text-center>NRR</th>
+      </tr>
+      <tr *ngFor="let ipl of iplJson" style="border-bottom: 1px solid #eeeeee;">
+        <img style="width: 25px;height: 25px;" [src]="iplLogo(ipl.team.title)" />
+        <td>{{ipl.team.abbr}}</td>
+        <td text-center>{{ipl.played}}</td>
+        <td text-center>{{ipl.win}}</td>
+        <td text-center>{{ipl.loss}}</td>
+        <td text-center>{{ipl.draw}}</td>
+        <td text-center>{{ipl.nr}}</td>
+        <td text-center>{{ipl.points}}</td>
+        <td text-center>{{ipl.netrr}}</td>
+      </tr>
+    </table>
+  </div>
+
+</ion-content>

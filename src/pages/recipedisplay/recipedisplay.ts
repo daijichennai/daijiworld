@@ -42,7 +42,9 @@ export class RecipedisplayPage {
         console.log(result);
         this.recipeJson = result;
         loader.dismiss();
-      })
+      }, error => {
+        loader.dismiss();
+      });
     });
   }
 

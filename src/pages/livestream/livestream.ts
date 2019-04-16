@@ -94,7 +94,9 @@ export class LivestreamPage implements PipeTransform {
           this.openWebpage(result[0].hpVideoCode);
         }        
         loader.dismiss();
-      })
+      }, error => {
+        loader.dismiss();
+      });
     });
   }
 

@@ -41,7 +41,9 @@ export class DwweeklyPage {
         console.log(result);
         this.dwWeeklyJson = result;
         loader.dismiss();
-      })
+      }, error => {
+        loader.dismiss();
+      });
     });
   }
 

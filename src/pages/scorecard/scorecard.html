@@ -1,0 +1,242 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="toggleMenu();">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Score Card</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div>
+    <ion-segment [(ngModel)]="tabs">
+      <ion-segment-button value="scorecard">
+        Score Card
+      </ion-segment-button>
+      <ion-segment-button value="commentary">
+        Commentary
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="tabs">
+    <ion-list *ngSwitchCase="'scorecard'">
+      <br>
+      <div>
+        <div text-center>
+          <span class="colorPink"><b>{{matchStatus}}</b></span><br>
+          <span class="colorPink" *ngIf="isManOfTheMatch">
+            <b>MAN OF THE MATCH : {{manOfTheMatch.toUpperCase()}}</b><br>
+          </span>
+        </div>
+        <div *ngFor="let sc of scoreCardJson">
+          <table class="tbl">
+            <tr>
+              <th colspan="4"><span class="colorPink">{{sc.name}}</span></th>
+              <th colspan="3" text-center>{{sc.scores_full}}</th>
+            </tr>
+            <tr>
+              <th text-center>BATSMEN</th>
+              <th text-center>R</th>
+              <th text-center>B</th>
+              <th text-center>4s</th>
+              <th text-center>6s</th>
+              <th text-center>SR</th>
+            </tr>
+            <tr *ngFor="let batsmen of sc.batsmen">
+              <td style="width:45%"><span class="colorPink">{{batsmen.name}}</span> <br>{{batsmen.how_out}}</td>
+              <td text-center>{{batsmen.runs }}</td>
+              <td text-center>{{batsmen.balls_faced }}</td>
+              <td text-center>{{batsmen.fours}} </td>
+              <td text-center>{{batsmen.sixes}} </td>
+              <td text-center>{{batsmen.strike_rate}} </td>
+            </tr>
+            <tr>
+              <td colspan="1"><b>Extras</b></td>
+              <td colspan="6" text-center>
+                <b>{{sc.equations.runs}} ( {{sc.equations.wickets}} wkts, {{sc.equations.overs}} Overs )</b>
+              </td>
+            </tr>
+            <tr>
+              <td><b>Did Not Bat</b></td>
+              <td colspan="5" text-left text-justify>
+                <div *ngFor="let dnb of sc.did_not_bat">
+                  {{dnb.name}},
+                </div>
+              </td>
+            </tr>
+          </table>
+          <br>
+          <table width="100%" style="border:1px solid #ddd;">
+            <tr>
+              <th>FALL OF WICKETS</th>
+            </tr>
+            <tr>
+              <td>
+                <ul>
+                  <li *ngFor="let fows of sc.fows" style="list-style:none;">
+                    {{fows.number}} - {{fows.score_at_dismissal}} ( {{fows.name}}, {{fows.overs_at_dismissal}})
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+          <br>
+          <table class="tbl">
+            <tr>
+              <th>BOWLER</th>
+              <th text-center>O</th>
+              <th text-center>M</th>
+              <th text-center>R</th>
+              <th text-center>W</th>
+              <th text-center>NB</th>
+              <th text-center>WB</th>
+              <th text-center>ECO</th>
+            </tr>
+            <tr *ngFor="let bowlers of sc.bowlers">
+              <td><span class="colorPink"> {{bowlers.name}}</span></td>
+              <td text-center> {{bowlers.overs}} </td>
+              <td text-center> {{bowlers.maidens }}</td>
+              <td text-center> {{bowlers.runs_conceded}} </td>
+              <td text-center> {{bowlers.wickets}} </td>
+              <td text-center> {{bowlers.noballs}} </td>
+              <td text-center> {{bowlers.wides}} </td>
+              <td text-center> {{bowlers.econ}} </td>
+            </tr>
+          </table>
+          <br>
+
+        </div>
+        <table class="tbl" *ngIf="isHideMatchInfo">
+          <tr>
+            <th text-center colspan='2'>Match Info</th>
+          </tr>
+
+          <tr>
+            <td style="width:30%">Match</td>
+            <td>{{matchTitle}}, {{subtitle}} </td>
+          </tr>
+
+          <tr>
+            <td>Date</td>
+            <td>{{convertDate(date_start)}} </td>
+          </tr>
+
+          <tr>
+            <td>Toss</td>
+            <td>{{toss}} </td>
+          </tr>
+
+          <tr>
+            <td>Time</td>
+            <td>{{convToIST(date_start)}} (IST) </td>
+          </tr>
+
+          <tr>
+            <td>Venue</td>
+            <td>{{venue}}, {{location}} </td>
+          </tr>
+
+          <tr>
+            <td>Umpires</td>
+            <td>{{umpires}} </td>
+          </tr>
+
+          <tr>
+            <td>Referee</td>
+            <td>{{referee}}</td>
+          </tr>
+          <tr>
+            <td colspan="2" text-center><b class="colorPink">{{teamAName}}</b></td>
+          </tr>
+          <tr>
+            <td>Playing XI</td>
+            <td>
+              <ul class="ulClass">
+                <li class="liClass" *ngFor="let sqad of squadTeamAJson">
+                  <div *ngIf="sqad.playing11 =='true'">
+                    {{sqad.name}}{{sqad.role_str}},
+                  </div>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Bench</td>
+            <td>
+              <ul class="ulClass">
+                <li class="liClass" *ngFor="let sqad of squadTeamAJson">
+                  <div *ngIf="sqad.playing11 =='false'">
+                    {{sqad.name}}{{sqad.role_str}},
+                  </div>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" text-center><b class="colorPink">{{teamBName}}</b></td>
+          </tr>
+          <tr>
+            <td>Playing XI</td>
+            <td>
+              <ul class="ulClass">
+                <li class="liClass" *ngFor="let sqad of squadTeamBJson">
+                  <div *ngIf="sqad.playing11 =='true'">
+                    {{sqad.name}}{{sqad.role_str}},
+                  </div>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Bench</td>
+            <td>
+              <ul class="ulClass">
+                <li class="liClass" *ngFor="let sqad of squadTeamBJson">
+                  <div *ngIf="sqad.playing11 =='false'">
+                    {{sqad.name}}{{sqad.role_str}},
+                  </div>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'commentary'">
+      <div padding-right padding-top>
+        <table width="100%">
+          <tr>
+            <td text-center class="borderLine"><b
+                class="colorRed">{{entireCommentaryJson.response.inning.name.toUpperCase()}}</b></td>
+          </tr>
+        </table>
+      </div><br>
+      <ion-grid>
+        <ion-row *ngFor="let c of commentaryJson" class="borderLine">
+
+          <div *ngIf="c.event === 'overend'; else notShow">
+            <ion-col col-12>
+              <b class="colorRed">{{c.commentary}}</b>
+            </ion-col>
+          </div>
+
+          <ng-template #notShow>
+            <ion-col col-2 text-center>
+              <div [innerHTML]="convertUppercase(c.score)"></div>
+            </ion-col>
+            <ion-col col-2 text-center>
+              {{chkUndefined(c.ball, c.event, c.over)}}
+            </ion-col>
+            <ion-col col-8 text-justify>
+              <div [innerHTML]="chkHowOut(c.how_out, c.batsman_runs, c.batsman_balls)"> </div>
+              <div [innerHTML]="chkWicket(c.event, c.commentary)"> </div>
+            </ion-col>
+          </ng-template>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+</ion-content>

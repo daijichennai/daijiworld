@@ -165,12 +165,7 @@ export class NewsdisplayPage {
         this.showAgreeDisagree = result[0].showLikeDislike;
         this.showThumbsUp = result[0].showThumbsUp;
         loader.dismiss();
-        //console.log(result[0].newsDesc);
-
-        setTimeout(() => {
-          loader.dismiss();
-        }, 10000);
-
+        //console.log(result[0].newsDesc); 
         this.chkIframe(result[0].newsDesc);
       
         //alert(this.intNewsComments);
@@ -178,7 +173,9 @@ export class NewsdisplayPage {
           this.hideShowDiv = true;
         }
         this.displayEmailCommentsByNewsID(this.intNewsID);
-      })
+      },error=>{
+        loader.dismiss();
+      });
     });
   }
 

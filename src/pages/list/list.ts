@@ -77,7 +77,9 @@ export class ListPage {
         this.intLastNewsID = this.listNews[dataLength - 1].newsID;
         console.log("Last News ID : " + this.intLastNewsID);
         loader.dismiss();
-      })
+      },error=>{
+        loader.dismiss();
+      });
     });
   }
   doInfinite(e): Promise<any> {

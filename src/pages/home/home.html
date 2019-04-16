@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons left>
-      <button text-center ion-button  icon-only (click)="goToLiveList()" >
-        <i class="fa fa-video-camera" style="font-size: 25px;color:#488aff;" ></i>
+      <button text-center ion-button icon-only (click)="goToLiveList()">
+        <i class="fa fa-video-camera" style="font-size: 25px;color:#488aff;"></i>
       </button>
     </ion-buttons>
     <ion-title><img src="../../assets/imgs/daijiworld.jpg" /></ion-title>
@@ -12,8 +12,8 @@
       </button>
     </ion-buttons>
   </ion-navbar>
- 
-  <ion-toolbar mode="md" color="primary"> 
+
+  <ion-toolbar mode="md" color="primary">
 
     <ion-segment #segments mode="md" [(ngModel)]="page" color="light">
       <ion-segment-button value="0" (click)="selectedTab(0)">
@@ -28,43 +28,46 @@
       <ion-segment-button value="3" (click)="selectedTab(3)">
         KARNATAKA
       </ion-segment-button>
-      <ion-segment-button value="4" style="background-color:red;" (click)="selectedTab(4)">
+      <ion-segment-button value="4" (click)="selectedTab(4)">
+        Cricket
+      </ion-segment-button>
+      <ion-segment-button value="5" style="background-color:red;" (click)="selectedTab(5)">
         OBITUARY
       </ion-segment-button>
-      <ion-segment-button value="5" (click)="selectedTab(5)">
+      <ion-segment-button value="6" (click)="selectedTab(6)">
         MUMBAI
       </ion-segment-button>
-      <ion-segment-button value="6" (click)="selectedTab(6)">
+      <ion-segment-button value="7" (click)="selectedTab(7)">
         GOA
       </ion-segment-button>
-      <ion-segment-button value="7" (click)="selectedTab(7)">
+      <ion-segment-button value="8" (click)="selectedTab(8)">
         GULF
       </ion-segment-button>
-      <ion-segment-button value="8" (click)="selectedTab(8)">
+      <ion-segment-button value="9" (click)="selectedTab(9)">
         USA
       </ion-segment-button>
-      <ion-segment-button value="9" style="word-wrap: break-word; width: auto" (click)="selectedTab(9)">
+      <ion-segment-button value="10" style="word-wrap: break-word; width: auto" (click)="selectedTab(10)">
         INDIA / WORLD
       </ion-segment-button>
-      <ion-segment-button value="10" (click)="selectedTab(10)">
+      <ion-segment-button value="11" (click)="selectedTab(11)">
         SHOW BIZ
       </ion-segment-button>
-      <ion-segment-button value="11" (click)="selectedTab(11)">
+      <ion-segment-button value="12" (click)="selectedTab(12)">
         BUSINESS
       </ion-segment-button>
-      <ion-segment-button value="12" (click)="selectedTab(12)">
+      <ion-segment-button value="13" (click)="selectedTab(13)">
         SPORTS
       </ion-segment-button>
-      <ion-segment-button value="13" (click)="selectedTab(13)">
+      <ion-segment-button value="14" (click)="selectedTab(14)">
         HEALTH
       </ion-segment-button>
-      <ion-segment-button value="14" style="word-wrap: break-word; width: auto" (click)="selectedTab(14)">
+      <ion-segment-button value="15" style="word-wrap: break-word; width: auto" (click)="selectedTab(15)">
         EDITOR'S PICK
       </ion-segment-button>
-      <ion-segment-button value="15" style="word-wrap: break-word; width: auto" (click)="selectedTab(15)">
+      <ion-segment-button value="16" style="word-wrap: break-word; width: auto" (click)="selectedTab(16)">
         COASTAL CINE WORLD
       </ion-segment-button>
-      <ion-segment-button value="16" style="word-wrap: break-word; width: auto" (click)="selectedTab(16)">
+      <ion-segment-button value="17" style="word-wrap: break-word; width: auto" (click)="selectedTab(17)">
         CAMPUS BEAT
       </ion-segment-button>
     </ion-segment>
@@ -164,6 +167,31 @@
         </div>
       </ion-list>
     </ion-slide>
+
+      <ion-slide>
+        <!-- Click Slide -->
+        <ion-list>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="cricketCard" (click)="goToCricket('live')" size="6">
+                Live
+              </ion-col>
+              <ion-col class="cricketCard" (click)="goToCricket('upcoming')" size="6">
+                Upcoming
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="cricketCard" (click)="goToCricket('recent')" size="6">
+                Recent
+              </ion-col>
+              <ion-col class="cricketCard" (click)="goToCricket('iccRanking')"  size="6">
+                IPL Rankings
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
+      </ion-slide>
+
     <ion-slide>
       <ion-list>
         <div *ngFor="let i of listNews">

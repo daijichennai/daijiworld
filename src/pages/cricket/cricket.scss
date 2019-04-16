@@ -1,0 +1,66 @@
+page-cricket {
+
+    table tr td,
+    table tr th {
+        //border   : 1px solid #dddddd;
+        font-weight: 400;
+        padding    : 0 5px;
+        line-height: 30px;
+    }
+
+    table tr th {
+        color     : #222222;
+        background: #eeeeee;
+    }
+
+    .img-circle {
+        height       : 5vw;
+        width        : 5vw;
+        border       : 2px solid #fff;
+        border-radius: 50%;
+        box-shadow   : 0 0 5px gray;
+        display      : inline-block;
+        margin-left  : auto;
+        margin-right : auto;
+    }
+
+    .compTitle {
+        padding        : 10px 10px 5px;
+        line-height    : 15px;
+        font-size      : 14px;
+        background     : #ecebeb;
+        font-weight    : bold;
+        text-decoration: none;
+    }
+
+    .tile {
+        width         : 100%;
+        box-shadow    : 1px 4px 8px 5px rgba(0, 0, 0, 0.2);
+        transition    : 0.3s;
+        vertical-align: middle;
+    }
+
+    .stats strong {
+        display    : block;
+        font-size  : 10px;
+        font-weight: 700;
+    }
+
+    .stats {
+        overflow   : auto;
+        font-size  : 14px;
+        color      : #59687f;
+        font-weight: 600;
+    }
+
+    .stats div {
+        width     : 33.33333%;
+        float     : left;
+        text-align: center;
+    }
+
+    a:hover {
+        color          : #f44336;
+        text-decoration: none;
+    }
+}

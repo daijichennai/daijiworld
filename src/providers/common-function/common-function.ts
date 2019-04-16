@@ -6,7 +6,7 @@ export class CommonFunctionProvider {
 
   public domainName: string = "https://www.daijiworld.com/"
   //public domainName: string = "http://192.168.1.2/daijiworld/"
-  
+  public cricketTokenID: string = "bdcaf1ba8f314f1c683a237d5e6df4ab";
   constructor(public http: HttpClient) {
     //console.log('Hello CommonFunctionProvider Provider');
   }

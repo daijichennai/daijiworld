@@ -37,7 +37,9 @@ export class LiveListPage {
         console.log(result);
         this.listDaijiLive = result;
         loader.dismiss();
-      })
+      }, error => {
+        loader.dismiss();
+      });
     });
   }
 

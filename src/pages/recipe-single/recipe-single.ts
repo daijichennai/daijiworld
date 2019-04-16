@@ -51,6 +51,8 @@ export class RecipeSinglePage {
         console.log(result);
         this.singleRecipeJson = result;
         loader.dismiss();
+      }, error => {
+        loader.dismiss();
       });
     });
   }

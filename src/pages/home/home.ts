@@ -175,7 +175,9 @@ export class HomePage {
         // this.isHpVideoActive = result[0].hpVideoActive;
         // this.strHpVideoTitle = result[0].hpVideoTitle;
         loader.dismiss();
-      })
+      },error=>{
+        loader.dismiss();
+      });
     });
   }
 
@@ -234,38 +236,39 @@ export class HomePage {
       return "topstories"
     } else if (pageIndex == 1) {
       return "headlines"
-    }else if (pageIndex == 2) {
+    } else if (pageIndex == 2) {
       return "live"
-    }else if (pageIndex == 3) {
+    } else if (pageIndex == 3) {
       return "kar"
     } else if (pageIndex == 4) {
-      return "obituary"
+      return "Cricket"
     } else if (pageIndex == 5) {
-      return "mah"
+      return "obituary"
     } else if (pageIndex == 6) {
-      return "goa"
+      return "mah"
     } else if (pageIndex == 7) {
-      return "me"
+      return "goa"
     } else if (pageIndex == 8) {
-      return "usa"
+      return "me"
     } else if (pageIndex == 9) {
-      return "others"
+      return "usa"
     } else if (pageIndex == 10) {
-      return "entertainment"
+      return "others"
     } else if (pageIndex == 11) {
-      return "business"
+      return "entertainment"
     } else if (pageIndex == 12) {
-      return "sports"
+      return "business"
     } else if (pageIndex == 13) {
-      return "health"
+      return "sports"
     } else if (pageIndex == 14) {
-      return "editor"
+      return "health"
     } else if (pageIndex == 15) {
-      return "coastalCineWorld"
+      return "editor"
     } else if (pageIndex == 16) {
+      return "coastalCineWorld"
+    } else if (pageIndex == 17) {
       return "campusBeat"
     }
-
   }
 
   centerScroll() {
@@ -320,6 +323,12 @@ export class HomePage {
 
   goToLiveList(){
     this.navCtrl.push('LiveListPage');
+  }
+
+  goToCricket(matchMode: string) {
+    this.navCtrl.push('CricketPage', {
+      "matchMode": matchMode
+    });
   }
 
 
