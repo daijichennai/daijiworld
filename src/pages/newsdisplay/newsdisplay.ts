@@ -17,18 +17,17 @@ export class NewsdisplayPage {
   public newsTitle: string;
   strNewsSection: string;
   dispNewsSectionName: string;
-  public intNewsComments :number;
+  public intNewsComments: number;
   public domainName: string = "";
   public myDate: Date = new Date();
   public newsCommentsData: any;
   public hideShowDiv: boolean = false;
-  public fromPage:string="";
-  public showAgreeDisagree:boolean;
-  public showThumbsUp:boolean;
+  public fromPage: string = "";
+  public showAgreeDisagree: boolean;
+  public showThumbsUp: boolean;
 
   public isIframe: boolean = false;
   public iframeURL: string = "";
-  public n_loc : string = "";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,26 +41,18 @@ export class NewsdisplayPage {
   ) {
 
     this.domainName = myFunc.domainName;
-    
+
     this.intNewsID = navParams.get('newsID');
     this.newsTitle = navParams.get('newsTitle');
     this.strNewsSection = navParams.get('newsSection');
     this.intNewsComments = navParams.get('newsComments');
     this.fromPage = navParams.get('fromPage');
-    this.n_loc = navParams.get('n_loc');
     this.dispNewsSectionName = this.myFunc.displayNewsSection(this.strNewsSection);
     //alert(this.strNewsSection);
+    this.newsDisplayByID(this.intNewsID, this.strNewsSection);
 
-    if (this.strNewsSection === "matrimonialMale" || this.strNewsSection === "matrimonialFemale" || this.strNewsSection === "jobs"){
-        this.newsDisplayByID(this.intNewsID, this.strNewsSection);
-    }else{
-      this.newsDisplayByID(this.intNewsID, this.n_loc);
-    }
-     //this.newsDisplayByID(this.intNewsID, this.strNewsSection);
-    //this.newsDisplayByID(this.intNewsID, this.n_loc);
 
-   
-   
+
     //this.displayEmailCommentsByNewsID(538813);
   }
 
@@ -93,8 +84,7 @@ export class NewsdisplayPage {
   displayEmailCommentsByNewsID(newsID: number) {
     let newsComment: Observable<any>;
 
-    //let url = this.domainName + "mobileHandlers/androidEmailComments.ashx?mode=dispComment&newsID=" + newsID + "&newsSection=" + this.strNewsSection;
-    let url = this.domainName + "mobileHandlers/androidEmailComments.ashx?mode=dispComment&newsID=" + newsID + "&newsSection=" + this.n_loc;
+    let url = this.domainName + "mobileHandlers/androidEmailComments.ashx?mode=dispComment&newsID=" + newsID + "&newsSection=" + this.strNewsSection;
     newsComment = this.http.get(url);
     newsComment.subscribe(commentResult => {
       this.newsCommentsData = commentResult;
@@ -103,8 +93,8 @@ export class NewsdisplayPage {
   }
 
   agreeDisAgreeFn(agreeMode, ecID) {
-  console.log('ECID =='+ ecID);
-    
+    console.log('ECID ==' + ecID);
+
     let agreeDisagreeURL = this.domainName + "mobileHandlers/emailCommentsAgreeDisagree.ashx?ecID=" + ecID + "&agreeDisagree=" + agreeMode;
     console.log(this.domainName);
     this.http.post(agreeDisagreeURL, "").subscribe(
@@ -127,32 +117,34 @@ export class NewsdisplayPage {
 
 
   commentsPageFn() {
-    this.navCtrl.push('CommentsPage',{
+    this.navCtrl.push('CommentsPage', {
       "newsTitle": this.newsTitle,
-      "newsID":this.intNewsID,
-      "newsSection": this.n_loc
+      "newsID": this.intNewsID,
+      "newsSection": this.strNewsSection
     });
   }
 
-  replyFn(ecID: number, commentMode:string){
+  replyFn(ecID: number, commentMode: string) {
     this.navCtrl.push('CommentsPage', {
       "commentMode": commentMode,
       "ecID": ecID,
       "newsTitle": this.newsTitle,
       "newsID": this.intNewsID,
-      "newsSection": this.n_loc
+      "newsSection": this.strNewsSection
     });
   }
 
-  newsDisplayByID(newsID: number,newsMode :string) {
+  newsDisplayByID(newsID: number, newsMode: string) {
     //console.log(newsMode);
-    if (newsMode =="homeTopStories"){
-      newsMode ="topstories";
-    } 
+    if (newsMode == "homeTopStories") {
+      newsMode = "topstories";
+    }
     let data: Observable<any>;
     // alert(newsID);
     // alert(newsMode);
     let url = this.domainName + "mobileHandlers/singleNews.ashx?newsID=" + newsID + "&newsMode=" + newsMode;
+
+
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -164,17 +156,19 @@ export class NewsdisplayPage {
         this.singleNewsData = result;
         this.showAgreeDisagree = result[0].showLikeDislike;
         this.showThumbsUp = result[0].showThumbsUp;
-        loader.dismiss();
-        //console.log(result[0].newsDesc); 
+
+        //console.log(result[0].newsDesc);
         this.chkIframe(result[0].newsDesc);
-      
+
+
+        loader.dismiss();
         //alert(this.intNewsComments);
         if (this.intNewsComments != 0) {
           this.hideShowDiv = true;
         }
         this.displayEmailCommentsByNewsID(this.intNewsID);
-      },error=>{
-        loader.dismiss();
+      },error =>{
+          loader.dismiss();
       });
     });
   }
@@ -197,22 +191,13 @@ export class NewsdisplayPage {
   shareNews() {
     //alert(this.newsID);
     let shareLink = "";
-    if (this.n_loc ==="obituary"){
+    if (this.strNewsSection === "obituary") {
       shareLink = this.domainName + "chan/obituaryDisplay.aspx?obituaryID=" + this.intNewsID;
-    } else if (this.n_loc === "exclusive"){
+    } else if (this.strNewsSection === "exclusive") {
       shareLink = this.domainName + "chan/exclusiveDisplay.aspx?articlesID=" + this.intNewsID;
-    }else if (this.n_loc === "property") {
-      shareLink = this.domainName + "classifieds/properties.aspx?pID=" + this.intNewsID;
-    } else if (this.n_loc === "matrimonial") {
-      shareLink = this.domainName + "classifieds/matrimonial.aspx?mID=" + this.intNewsID;
-    } else if (this.n_loc === "jobs_classifieds") {
-      shareLink = this.domainName + "classifieds/jobs.aspx?jID=" + this.intNewsID;
-    } else if (this.n_loc === "classifieds") {
-      shareLink = this.domainName + "classifieds/classifieds.aspx?cID=" + this.intNewsID;
-    }else{
+    } else {
       shareLink = this.domainName + "news/newsDisplay.aspx?newsID=" + this.intNewsID;
     }
-    // alert(this.n_loc);
     //let shareLink = this.domainName + "news/newsDisplay.aspx?newsID=" + this.intNewsID;
     this.socialSharing.share(this.newsTitle, null, null, shareLink).then(() => {
       console.log('success');
@@ -224,5 +209,5 @@ export class NewsdisplayPage {
   toggleMenu() {
     this.menuCtrl.toggle();
   }
- 
+
 }
