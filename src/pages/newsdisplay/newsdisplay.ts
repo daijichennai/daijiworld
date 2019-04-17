@@ -67,19 +67,22 @@ export class NewsdisplayPage {
   chkIframe(newsDesc) {
     var iframeRegex = /(?:<iframe[^>]*)(?:(?:\/>)|(?:>.*?<\/iframe>))/g;
     var findIframe = newsDesc.match(iframeRegex);
-
     if (newsDesc.match(iframeRegex)) {
       this.isIframe = true;
-
-      var srcRegex = /\s*\s*"(.+?)"/g;
+      var srcRegex = /\s*\s*src="(.+?)"/g;
       var findIframeUrl = findIframe[0].match(srcRegex);
-
-      this.iframeURL = findIframeUrl[0].replace(/"/g, "");
-
-      console.log(findIframeUrl[0].replace(/"/g, ""));
+      this.iframeURL = findIframeUrl[0].replace(/src="/g, "").replace(/"/g, '');
+      console.log(findIframeUrl[0].replace(/src="/g, "").replace(/"/g, ''));
     }
   }
 
+
+  unicodeToChar(text) {
+    return text.replace(/\\u[\dA-F]{4}/gi,
+      function (match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+      });
+  }
 
   displayEmailCommentsByNewsID(newsID: number) {
     let newsComment: Observable<any>;
