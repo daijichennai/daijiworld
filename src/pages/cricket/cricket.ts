@@ -1,68 +1,76 @@
-import { CommonFunctionProvider } from './../../providers/common-function/common-function';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController} from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, Slides, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { CommonFunctionProvider } from '../../providers/common-function/common-function';
 @IonicPage()
 @Component({
   selector: 'page-cricket',
   templateUrl: 'cricket.html',
 })
 export class CricketPage {
-  public matchMode: string = '';
-  public toolTitle: string = '';
-  public cricketJson: any;
-  public isHideMatch: boolean = false;
-  public tokenID: string;
-  public iplJson:any;
+  @ViewChild('slider') slider: Slides;
+  @ViewChild("segments") segments;
+  page: any;
+  items = [];
+  public iplJson: any;
+  public recentJson: any;
+  public upcomingJson: any;
+  public liveJson: any;
+  public isHideRecentMatch: boolean = false;
+  public isHideUpcomingMatch: boolean = false;
+  public isHideLiveMatch: boolean = false;
 
-  constructor(
-    public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public menuCtrl: MenuController,
     public http: HttpClient,
     public loadingCtrl: LoadingController,
     public myFunc: CommonFunctionProvider,
-    public menuCtrl: MenuController
   ) {
-
-    this.matchMode = navParams.get('matchMode');
-    this.toolTitle = this.titleFn(this.matchMode);
-    this.tokenID = this.myFunc.cricketTokenID;
   }
 
   ionViewDidLoad() {
-    if (this.matchMode === "iccRanking"){
-      this.getIPLStandings();
-    }else{
-      this.getData(this.matchMode, this.tokenID);
-    }
-    
+    //console.log('ionViewDidLoad CricketPage');
   }
-  getData(mode, token) {
+
+  getMatches(status) {
     let data: Observable<any>;
     let url = '';
-    if (mode === "recent") {
-      url = "https://rest.entitysport.com/v2/matches/?status=2&token=" + token + "&paged=1&per_page=80";
-    } else if (mode === "live") {
-      url = "https://rest.entitysport.com/v2/matches/?status=3&token=" + token + "&paged=1&per_page=80";
-    } else if (mode === "upcoming") {
-      url = "https://rest.entitysport.com/v2/matches/?status=1&token=" + token + "&paged=1&per_page=80";
-    }
-    //  else if (mode === "iccRanking") {
-    //   url = "https://rest.entitysport.com/v2/iccranks?token=token=bdcaf1ba8f314f1c683a237d5e6df4ab";
-    // }  
+
+    url = "https://rest.entitysport.com/v2/matches/?status=" + status + "&token=" + this.myFunc.cricketTokenID + "&paged=1&per_page=80";
+
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+
     data = this.http.get(url);
     loader.present().then(() => {
       data.subscribe(result => {
-        console.log(result.response.items);
-        if (result.response.items != 0) {
-          this.cricketJson = result.response.items;
-        } else {
-          this.isHideMatch = true;
+        if (status === 3) {
+          if (result.response.items != 0) {
+            this.liveJson = result.response.items;
+          } else {
+            this.isHideLiveMatch = true;
+          }
+
+        } else if (status === 1) {
+          if (result.response.items != 0) {
+            this.upcomingJson = result.response.items;
+          } else {
+            this.isHideUpcomingMatch = true;
+          }
+
+        } else if (status === 2) {
+          if (result.response.items != 0) {
+            this.recentJson = result.response.items;
+          } else {
+            this.isHideRecentMatch = true;
+          }
         }
+
+        console.log(result.response.items);
+
         loader.dismiss();
       }, error => {
         loader.dismiss();
@@ -90,31 +98,7 @@ export class CricketPage {
         });
     });
   }
-  
-  toggleMenu() {
-    this.menuCtrl.open();
-  }
- 
 
-  titleFn(mode) {
-    if (mode === "live") {
-      return "Live"
-    } else if (mode === "upcoming") {
-      return "Upcoming"
-    } else if (mode === "recent") {
-      return "Recent"
-    } else if (mode === "iccRanking") {
-      return "ICC Ranking"
-    }
-  }
-
-  goToScoreCard(matchID) {
-    if (this.matchMode != 'upcoming') {
-      this.navCtrl.push('ScorecardPage', {
-        "matchID": matchID
-      });
-    }
-  }
   iplLogo(teamName, teamLogo) {
     if (teamName === "Sunrisers Hyderabad") {
       return "http://www.daijiworld.in/images3/sunrisersHyderabad.png";
@@ -136,4 +120,106 @@ export class CricketPage {
       return teamLogo;
     }
   }
+
+  goToScoreCard(mID) {
+    this.navCtrl.push('ScorecardPage', {
+      "matchID": mID
+    })
+  }
+
+  convertDate(dateValue) {
+    var d = new Date(dateValue);
+    var monthNames = ["Jan", "Feb", "Mar", "Apl", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    var day = d.getDate();
+    var monthIndex = d.getMonth();
+    var year = d.getFullYear();
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
+  // Initialize slider
+  ionViewDidEnter() {
+    this.slideChanged();
+  }
+
+  // On segment click
+  selectedTab(index) {
+    this.slider.slideTo(index);
+    console.log("selectedTab", index)
+   
+  }
+
+
+  // On slide changed
+  slideChanged() {
+    let currentIndex = this.slider.getActiveIndex();
+    let slides_count = this.segments.nativeElement.childElementCount;
+
+    this.page = currentIndex.toString();
+    if (this.page >= slides_count)
+      this.page = (slides_count - 1).toString();
+    
+    if (this.page === "3") {
+      this.getIPLStandings();
+
+    } else if (this.page === "2") { // Live
+      this.getMatches(3);   //Live
+
+    } else if (this.page === "1") {   //Upcoming
+      this.getMatches(1);        //Upcoming
+
+    }
+    else if (this.page === "0") {   //Recent
+      this.getMatches(2);        //Recent
+    }
+
+    this.centerScroll();
+  }
+
+  centerScroll() {
+    if (!this.segments || !this.segments.nativeElement)
+      return;
+
+    let sizeLeft = this.sizeLeft();
+    let sizeCurrent = this.segments.nativeElement.children[this.page].clientWidth;
+    let result = sizeLeft - (window.innerWidth / 2) + (sizeCurrent / 2);
+
+    result = (result > 0) ? result : 0;
+    this.smoothScrollTo(result);
+  }
+  // Get size start to current
+  sizeLeft() {
+    let size = 0;
+    for (let i = 0; i < this.page; i++) {
+      size += this.segments.nativeElement.children[i].clientWidth;
+    }
+    return size;
+  }
+
+  // Animate scroll
+  smoothScrollTo(endX) {
+    let startTime = new Date().getTime();
+    let startX = this.segments.nativeElement.scrollLeft;
+    let distanceX = endX - startX;
+    let duration = 400;
+
+    let timer = setInterval(() => {
+      var time = new Date().getTime() - startTime;
+      var newX = this.easeInOutQuart(time, startX, distanceX, duration);
+      if (time >= duration) {
+        clearInterval(timer);
+      }
+      this.segments.nativeElement.scrollLeft = newX;
+    }, 1000 / 60); // 60 fps
+  }
+
+  // Easing function
+  easeInOutQuart(time, from, distance, duration) {
+    if ((time /= duration / 2) < 1) return distance / 2 * time * time * time * time + from;
+    return -distance / 2 * ((time -= 2) * time * time * time - 2) + from;
+  }
+
+  toggleMenu() {
+    this.menuCtrl.toggle();
+  }
+
 }

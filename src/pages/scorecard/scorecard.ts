@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, LoadingController, MenuController 
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { CommonFunctionProvider } from '../../providers/common-function/common-function';
+
+
 @IonicPage()
 @Component({
   selector: 'page-scorecard',
@@ -36,15 +38,18 @@ export class ScorecardPage {
               public http: HttpClient,
               public loadingCtrl: LoadingController,
               public myCommFun: CommonFunctionProvider,
-              public menuCtrl: MenuController) 
-  {
+              public menuCtrl: MenuController)
+      {
     this.intMatchID = navParams.get('matchID');
+    console.log(this.intMatchID);
   }
 
+   
   ionViewDidLoad() {
     this.getScoreCardByID(this.intMatchID);
     this.getMatchSquadByID(this.intMatchID);
   }
+
   getScoreCardByID(matchID) {
     let data: Observable<any>;
     let url = '';
@@ -86,7 +91,9 @@ export class ScorecardPage {
         this.scoreCardJson = result.response.innings;
         console.log(result.response.innings.reverse());
         loader.dismiss();
-         
+        setInterval(() => {
+          loader.dismiss();
+        }, 5000);
       },
         error => {
           loader.dismiss();
@@ -196,5 +203,6 @@ export class ScorecardPage {
     var ISTNow = hoursIST + ":" + minutesIST
     return ISTNow;
   }
+
 
 }

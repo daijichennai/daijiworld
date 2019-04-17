@@ -241,36 +241,34 @@ export class HomePage {
     } else if (pageIndex == 3) {
       return "kar"
     } else if (pageIndex == 4) {
-      return "Cricket"
-    } else if (pageIndex == 5) {
       return "obituary"
-    } else if (pageIndex == 6) {
+    } else if (pageIndex == 5) {
       return "mah"
-    } else if (pageIndex == 7) {
+    } else if (pageIndex == 6) {
       return "goa"
-    } else if (pageIndex == 8) {
+    } else if (pageIndex == 7) {
       return "me"
-    } else if (pageIndex == 9) {
+    } else if (pageIndex == 8) {
       return "usa"
-    } else if (pageIndex == 10) {
+    } else if (pageIndex == 9) {
       return "others"
-    } else if (pageIndex == 11) {
+    } else if (pageIndex == 10) {
       return "entertainment"
-    } else if (pageIndex == 12) {
+    } else if (pageIndex == 11) {
       return "business"
-    } else if (pageIndex == 13) {
+    } else if (pageIndex == 12) {
       return "sports"
-    } else if (pageIndex == 14) {
+    } else if (pageIndex == 13) {
       return "health"
-    } else if (pageIndex == 15) {
+    } else if (pageIndex == 14) {
       return "editor"
-    } else if (pageIndex == 16) {
+    } else if (pageIndex == 15) {
       return "coastalCineWorld"
-    } else if (pageIndex == 17) {
+    } else if (pageIndex == 16) {
       return "campusBeat"
     }
-  }
 
+  }
   centerScroll() {
     if (!this.segments || !this.segments.nativeElement)
       return;

@@ -42,6 +42,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'News', component: HomePage, icon: 'fa fa-bars',newsMode : '' },
+      { title: 'Cricket', component: 'CricketPage', icon: 'fa fa-trophy', newsMode: 'cricket' },
       { title: 'Special', component: 'ListPage', icon: 'fa fa-star', newsMode: 'exclusive'},
       { title: 'Properties', component: 'ListPage', icon: 'fa fa-building', newsMode: 'property'},
       { title: 'Matrimonial-Groom', component: 'ListPage', icon: 'fa fa-mars', newsMode: 'matrimonialMale' },
